@@ -1,0 +1,26 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../rtl/ex_stage/alu.v" \
+"../../../../rtl/ex_stage/alu_control.v" \
+"../../../../rtl/ex_stage/branch_unit.v" \
+"../../../../rtl/id_stage/control_unit.v" \
+"../../../../rtl/mem_stage/data_memory.v" \
+"../../../../rtl/pipeline_regs/ex_mem_reg.v" \
+"../../../../rtl/ex_stage/forwarding_unit.v" \
+"../../../../rtl/hazard_unit.v" \
+"../../../../rtl/pipeline_regs/id_ex_reg.v" \
+"../../../../rtl/pipeline_regs/if_id_reg.v" \
+"../../../../rtl/id_stage/imm_gen.v" \
+"../../../../rtl/if_stage/instruction_memory.v" \
+"../../../../rtl/pipeline_regs/mem_wb_reg.v" \
+"../../../../rtl/if_stage/pc.v" \
+"../../../../rtl/id_stage/register_file.v" \
+"../../../../rtl/riscv_pipeline.v" \
+"../../../../rtl/wb_stage/wb_mux.v" \
+"../../../../tb/tb_riscv_pipeline.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

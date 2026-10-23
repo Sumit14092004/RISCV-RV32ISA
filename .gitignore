@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+
+# Vivado generated files & directories
+.Xil/
+*.jou
+*.log
+*.pb
+*.dcp
+*.wdb
+*.vcd
+*.out
+
+# Vivado project caches and implementation runs
+riscv_pipeline.cache/
+riscv_pipeline.hw/
+riscv_pipeline.ip_user_files/
+riscv_pipeline.runs/
+
+# Vivado Simulation directories
+riscv_pipeline.sim/sim_1/behav/xsim/xsim.dir/
+riscv_pipeline.sim/sim_1/behav/xsim/*.log
+riscv_pipeline.sim/sim_1/behav/xsim/*.pb
+riscv_pipeline.sim/sim_1/behav/xsim/*.wdb
+riscv_pipeline.sim/sim_1/behav/xsim/*.vcd
+riscv_pipeline.sim/sim_1/behav/xsim/xelab.pb
+riscv_pipeline.sim/sim_1/behav/xsim/xvlog.pb
+
+# Compiled test files
+*.o
+*.out
+
+# Python
+__pycache__/
+*.pyc
