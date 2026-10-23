@@ -14,6 +14,11 @@ A complete, fully verified 5-stage pipelined processor core implementing the 32-
 
 ## Architecture Overview
 
+![RISC-V 5-Stage Pipeline Architecture Schematic](docs/riscv_5stage_pipeline_schematic.svg)
+
+> **Interactive Viewer:** Open [`docs/schematic_viewer.html`](docs/schematic_viewer.html) in any browser for full-screen pan and zoom.  
+> **Transistor-Level SPICE Models:** See [`docs/riscv_6t_sram_cell.asc`](docs/riscv_6t_sram_cell.asc) (6T SRAM memory bit-cell for LTspice) and [`docs/riscv_alu_full_adder.cir`](docs/riscv_alu_full_adder.cir) (1-bit CMOS ALU adder slice).
+
 The core follows the classic 5-stage RISC-V pipelined datapath:
 1. **IF (Instruction Fetch):** Program Counter (`pc.v`) and Instruction Memory (`instruction_memory.v`).
 2. **ID (Instruction Decode):** Control Unit (`control_unit.v`), Register File (`register_file.v`) with write-through bypass, and Immediate Generator (`imm_gen.v`).

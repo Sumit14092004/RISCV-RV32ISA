@@ -25,6 +25,9 @@ The processor was verified across five comprehensive testing phases, including b
 
 The processor executes the RISC-V RV32I unprivileged instruction set. RV32I is a load-store architecture featuring thirty-two 32-bit general-purpose registers (`x0` through `x31`), where `x0` is hardwired to zero.
 
+![RISC-V 5-Stage Pipeline Architecture Schematic](riscv_5stage_pipeline_schematic.svg)
+*Figure 1: Complete 5-stage RISC-V RV32I pipelined architecture showing all 17 submodules, forwarding networks, hazard detection unit, and writeback paths.*
+
 ### 2.1 The 5 Pipeline Stages
 
 ```
