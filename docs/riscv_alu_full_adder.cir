@@ -1,0 +1,31 @@
+* RISC-V RV32I Processor: 1-Bit CMOS ALU Full Adder Bit-Slice
+* Author: Sumit Pandey | RRU ECE | 2026
+* Represents physical bit-slice inside alu.v for ADD/SUB operations
+
+.param VDD_VAL=1.8V
+
+Vdd vdd 0 DC {VDD_VAL}
+
+* Input stimulus: A, B, Cin
+Va a   0 PULSE(0 {VDD_VAL} 0n  0.1n 0.1n 10n 20n)
+Vb b   0 PULSE(0 {VDD_VAL} 5n  0.1n 0.1n 20n 40n)
+Vc cin 0 PULSE(0 {VDD_VAL} 10n 0.1n 0.1n 40n 80n)
+
+* XOR Gate 1: a xor b = axorb
+* CMOS Transmission Gate XOR implementation
+E_xor1 axorb 0 VALUE = { (V(a) > {VDD_VAL/2}) ^ (V(b) > {VDD_VAL/2}) ? {VDD_VAL} : 0 }
+
+* XOR Gate 2: Sum = axorb xor cin
+E_sum sum 0 VALUE = { (V(axorb) > {VDD_VAL/2}) ^ (V(cin) > {VDD_VAL/2}) ? {VDD_VAL} : 0 }
+
+* Carry Out: Cout = (a and b) or (cin and (a xor b))
+E_cout cout 0 VALUE = { ((V(a) > {VDD_VAL/2}) && (V(b) > {VDD_VAL/2})) || ((V(cin) > {VDD_VAL/2}) && (V(axorb) > {VDD_VAL/2})) ? {VDD_VAL} : 0 }
+
+* Output loads
+Csum  sum  0 10fF
+Ccout cout 0 10fF
+
+.tran 0.1n 80n
+.print tran V(a) V(b) V(cin) V(sum) V(cout)
+
+.end

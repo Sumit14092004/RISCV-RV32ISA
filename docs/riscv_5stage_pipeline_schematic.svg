@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 950" width="100%" height="100%" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="115%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-opacity="0.15" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#334155" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#dc2626" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#9333ea" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#16a34a" />
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="1600" height="70" fill="#0f172a" />
+  <text x="30" y="42" fill="#ffffff" font-size="24" font-weight="bold" letter-spacing="0.5">RISC-V RV32I 5-Stage Pipelined Processor Architecture</text>
+  <text x="1250" y="42" fill="#94a3b8" font-size="16">Sumit Pandey | RRU ECE 2026</text>
+
+  <!-- Stage Background Zones -->
+  <!-- IF -->
+  <rect x="20" y="85" width="270" height="660" rx="12" fill="#f0f9ff" stroke="#bae6fd" stroke-width="2" />
+  <text x="110" y="115" fill="#0369a1" font-size="16" font-weight="bold">1. FETCH (IF)</text>
+
+  <!-- ID -->
+  <rect x="310" y="85" width="290" height="660" rx="12" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2" />
+  <text x="400" y="115" fill="#15803d" font-size="16" font-weight="bold">2. DECODE (ID)</text>
+
+  <!-- EX -->
+  <rect x="620" y="85" width="350" height="660" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="2" />
+  <text x="735" y="115" fill="#b45309" font-size="16" font-weight="bold">3. EXECUTE (EX)</text>
+
+  <!-- MEM -->
+  <rect x="990" y="85" width="270" height="660" rx="12" fill="#faf5ff" stroke="#e9d5ff" stroke-width="2" />
+  <text x="1080" y="115" fill="#7e22ce" font-size="16" font-weight="bold">4. MEMORY (MEM)</text>
+
+  <!-- WB -->
+  <rect x="1280" y="85" width="290" height="660" rx="12" fill="#fff1f2" stroke="#fecdd3" stroke-width="2" />
+  <text x="1375" y="115" fill="#be123c" font-size="16" font-weight="bold">5. WRITEBACK (WB)</text>
+
+  <!-- ==================== STAGE 1: IF ==================== -->
+  <!-- PC MUX -->
+  <polygon points="40,250 60,265 60,335 40,350" fill="#e2e8f0" stroke="#475569" stroke-width="2" />
+  <text x="44" y="305" fill="#1e293b" font-size="12" font-weight="bold">MUX</text>
+
+  <!-- PC Register -->
+  <rect x="85" y="270" width="60" height="80" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="103" y="305" fill="#0f172a" font-size="14" font-weight="bold">PC</text>
+  <text x="96" y="325" fill="#64748b" font-size="10">32-bit</text>
+
+  <!-- PC+4 Adder -->
+  <rect x="105" y="150" width="70" height="50" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="2" filter="url(#shadow)" />
+  <text x="125" y="178" fill="#0f172a" font-size="13" font-weight="bold">+4</text>
+  <text x="115" y="193" fill="#64748b" font-size="9">Adder</text>
+
+  <!-- Instruction Memory -->
+  <rect x="180" y="250" width="95" height="120" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="195" y="285" fill="#0f172a" font-size="13" font-weight="bold">Instruction</text>
+  <text x="198" y="303" fill="#0f172a" font-size="13" font-weight="bold">Memory</text>
+  <text x="202" y="325" fill="#0284c7" font-size="10">1KB (ROM)</text>
+  <text x="192" y="345" fill="#64748b" font-size="9">addr[9:2]</text>
+
+  <!-- IF/ID Register -->
+  <rect x="285" y="130" width="22" height="480" rx="4" fill="#0284c7" />
+  <text x="290" y="350" fill="#ffffff" font-size="12" font-weight="bold" transform="rotate(-90 290 350)">IF / ID REGISTER</text>
+
+  <!-- ==================== STAGE 2: ID ==================== -->
+  <!-- Control Unit -->
+  <rect x="330" y="140" width="90" height="90" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="345" y="175" fill="#0f172a" font-size="13" font-weight="bold">Control</text>
+  <text x="355" y="193" fill="#0f172a" font-size="13" font-weight="bold">Unit</text>
+  <text x="340" y="215" fill="#16a34a" font-size="9">Opcode[6:0]</text>
+
+  <!-- Register File -->
+  <rect x="440" y="250" width="135" height="170" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="465" y="278" fill="#0f172a" font-size="14" font-weight="bold">Register File</text>
+  <text x="450" y="305" fill="#475569" font-size="11">rs1 [19:15] → RD1</text>
+  <text x="450" y="330" fill="#475569" font-size="11">rs2 [24:20] → RD2</text>
+  <text x="450" y="360" fill="#475569" font-size="11">rd  [11:7]  ← WD</text>
+  <rect x="450" y="380" width="115" height="25" rx="4" fill="#dcfce7" stroke="#86efac" />
+  <text x="455" y="396" fill="#15803d" font-size="9" font-weight="bold">WB Bypass Enabled</text>
+
+  <!-- Imm Gen -->
+  <rect x="350" y="470" width="100" height="70" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="365" y="500" fill="#0f172a" font-size="13" font-weight="bold">Immediate</text>
+  <text x="362" y="518" fill="#0f172a" font-size="13" font-weight="bold">Generator</text>
+  <text x="360" y="533" fill="#64748b" font-size="9">I, S, B, U, J</text>
+
+  <!-- ID/EX Register -->
+  <rect x="600" y="130" width="22" height="480" rx="4" fill="#16a34a" />
+  <text x="605" y="350" fill="#ffffff" font-size="12" font-weight="bold" transform="rotate(-90 605 350)">ID / EX REGISTER</text>
+
+  <!-- ==================== STAGE 3: EX ==================== -->
+  <!-- Forwarding MUX A -->
+  <polygon points="650,230 670,240 670,290 650,300" fill="#fdf4ff" stroke="#9333ea" stroke-width="2" />
+  <text x="653" y="268" fill="#9333ea" font-size="10" font-weight="bold">FwdA</text>
+
+  <!-- Forwarding MUX B -->
+  <polygon points="650,340 670,350 670,400 650,410" fill="#fdf4ff" stroke="#9333ea" stroke-width="2" />
+  <text x="653" y="378" fill="#9333ea" font-size="10" font-weight="bold">FwdB</text>
+
+  <!-- ALUSrc MUX -->
+  <polygon points="700,360 715,370 715,410 700,420" fill="#fef3c7" stroke="#d97706" stroke-width="2" />
+  <text x="702" y="393" fill="#b45309" font-size="9" font-weight="bold">MUX</text>
+
+  <!-- ALU Control -->
+  <rect x="740" y="150" width="85" height="65" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2" filter="url(#shadow)" />
+  <text x="752" y="178" fill="#0f172a" font-size="12" font-weight="bold">ALU Control</text>
+  <text x="746" y="196" fill="#b45309" font-size="9">funct3/7 + alu_src</text>
+
+  <!-- ALU -->
+  <polygon points="750,240 820,280 820,330 750,370 750,320 765,305 750,290" fill="#ffffff" stroke="#d97706" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="775" y="310" fill="#0f172a" font-size="15" font-weight="bold">ALU</text>
+
+  <!-- Branch Target Adder -->
+  <rect x="760" y="470" width="80" height="50" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2" filter="url(#shadow)" />
+  <text x="775" y="495" fill="#0f172a" font-size="12" font-weight="bold">PC + Imm</text>
+  <text x="772" y="510" fill="#64748b" font-size="9">Branch Target</text>
+
+  <!-- Branch Unit -->
+  <rect x="860" y="460" width="85" height="70" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="2" filter="url(#shadow)" />
+  <text x="872" y="488" fill="#dc2626" font-size="12" font-weight="bold">Branch Unit</text>
+  <text x="868" y="506" fill="#475569" font-size="9">BEQ, BNE, JAL</text>
+  <text x="875" y="520" fill="#dc2626" font-size="9" font-weight="bold">Flush Gen</text>
+
+  <!-- Forwarding Unit -->
+  <rect x="680" y="560" width="150" height="65" rx="8" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="705" y="588" fill="#9333ea" font-size="13" font-weight="bold">Forwarding Unit</text>
+  <text x="692" y="608" fill="#6b21a8" font-size="10">EX-EX (10) &amp; MEM-EX (01)</text>
+
+  <!-- EX/MEM Register -->
+  <rect x="970" y="130" width="22" height="480" rx="4" fill="#d97706" />
+  <text x="975" y="350" fill="#ffffff" font-size="12" font-weight="bold" transform="rotate(-90 975 350)">EX / MEM REGISTER</text>
+
+  <!-- ==================== STAGE 4: MEM ==================== -->
+  <!-- Data Memory -->
+  <rect x="1050" y="250" width="125" height="150" rx="8" fill="#ffffff" stroke="#7e22ce" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="1075" y="280" fill="#0f172a" font-size="14" font-weight="bold">Data Memory</text>
+  <text x="1080" y="300" fill="#7e22ce" font-size="11">1KB (RAM)</text>
+  <text x="1065" y="330" fill="#475569" font-size="10">Addr: ALU Result</text>
+  <text x="1065" y="350" fill="#475569" font-size="10">WData: From rs2</text>
+  <text x="1065" y="375" fill="#15803d" font-size="9">Sync Write / Comb Read</text>
+
+  <!-- MEM/WB Register -->
+  <rect x="1260" y="130" width="22" height="480" rx="4" fill="#7e22ce" />
+  <text x="1265" y="350" fill="#ffffff" font-size="12" font-weight="bold" transform="rotate(-90 1265 350)">MEM / WB REGISTER</text>
+
+  <!-- ==================== STAGE 5: WB ==================== -->
+  <!-- WB Mux -->
+  <polygon points="1350,280 1370,295 1370,365 1350,380" fill="#ffe4e6" stroke="#e11d48" stroke-width="2" />
+  <text x="1353" y="335" fill="#be123c" font-size="11" font-weight="bold">MUX</text>
+
+  <!-- WB Explanation Box -->
+  <rect x="1400" y="270" width="150" height="120" rx="8" fill="#ffffff" stroke="#e11d48" stroke-width="2" filter="url(#shadow)" />
+  <text x="1415" y="300" fill="#0f172a" font-size="13" font-weight="bold">Write-Back Stage</text>
+  <text x="1410" y="325" fill="#475569" font-size="10">mem_to_reg = 0 → ALU</text>
+  <text x="1410" y="345" fill="#475569" font-size="10">mem_to_reg = 1 → Load</text>
+  <text x="1410" y="372" fill="#be123c" font-size="10" font-weight="bold">Writes to rd in RegFile</text>
+
+  <!-- ==================== HAZARD DETECTION UNIT ==================== -->
+  <rect x="380" y="770" width="600" height="95" rx="10" fill="#ffffff" stroke="#dc2626" stroke-width="2.5" filter="url(#shadow)" />
+  <text x="590" y="802" fill="#dc2626" font-size="16" font-weight="bold">Hazard Detection Unit</text>
+  <text x="400" y="830" fill="#334155" font-size="12">Condition: id_ex_mem_read &amp;&amp; (id_ex_rd == if_id_rs1 || id_ex_rd == if_id_rs2) &amp;&amp; id_ex_rd != 0</text>
+  <text x="430" y="850" fill="#b91c1c" font-size="12" font-weight="bold">Actions: Stall PC &amp; IF/ID Register (freeze) | Insert NOP Bubble into ID/EX Register</text>
+
+  <!-- ==================== WIRING / BUSES ==================== -->
+  <!-- PC to Addr and Adder -->
+  <path d="M 145 310 L 165 310 L 165 175 L 180 175" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+  <path d="M 145 310 L 180 310" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+
+  <!-- PC+4 back to MUX -->
+  <path d="M 140 150 L 140 135 L 25 135 L 25 280 L 40 280" fill="none" stroke="#0284c7" stroke-width="2" marker-end="url(#arrow-blue)" />
+
+  <!-- IMEM to IF/ID -->
+  <path d="M 275 310 L 285 310" fill="none" stroke="#0284c7" stroke-width="3" />
+
+  <!-- IF/ID to Decode -->
+  <path d="M 307 200 L 330 200" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)" />
+  <path d="M 307 310 L 440 310" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)" />
+  <path d="M 307 500 L 350 500" fill="none" stroke="#16a34a" stroke-width="2" marker-end="url(#arrow-green)" />
+
+  <!-- RegFile to ID/EX -->
+  <path d="M 575 290 L 600 290" fill="none" stroke="#16a34a" stroke-width="2.5" />
+  <path d="M 575 350 L 600 350" fill="none" stroke="#16a34a" stroke-width="2.5" />
+  <path d="M 450 500 L 600 500" fill="none" stroke="#16a34a" stroke-width="2.5" />
+
+  <!-- ID/EX to Fwd Muxes -->
+  <path d="M 622 280 L 650 280" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)" />
+  <path d="M 622 360 L 650 360" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)" />
+
+  <!-- Fwd Muxes to ALU -->
+  <path d="M 670 265 L 750 265" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)" />
+  <path d="M 670 375 L 700 375" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)" />
+  <path d="M 715 390 L 730 390 L 730 335 L 750 335" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#arrow)" />
+
+  <!-- ALU to EX/MEM -->
+  <path d="M 820 305 L 970 305" fill="none" stroke="#d97706" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- EX/MEM to Data Memory -->
+  <path d="M 992 305 L 1050 305" fill="none" stroke="#7e22ce" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- Data Memory to MEM/WB -->
+  <path d="M 1175 325 L 1260 325" fill="none" stroke="#7e22ce" stroke-width="2.5" />
+  <path d="M 992 270 L 1260 270" fill="none" stroke="#7e22ce" stroke-width="2" />
+
+  <!-- MEM/WB to WB Mux -->
+  <path d="M 1282 305 L 1350 305" fill="none" stroke="#be123c" stroke-width="2.5" marker-end="url(#arrow)" />
+  <path d="M 1282 345 L 1350 345" fill="none" stroke="#be123c" stroke-width="2.5" marker-end="url(#arrow)" />
+
+  <!-- WB Mux feedback loop to Register File (LONG PATH) -->
+  <path d="M 1370 325 L 1385 325 L 1385 710 L 460 710 L 460 420" fill="none" stroke="#e11d48" stroke-width="3" stroke-dasharray="8 4" marker-end="url(#arrow-red)" />
+  <text x="850" y="700" fill="#e11d48" font-size="12" font-weight="bold">Write-Back Data Bus (to RegFile rd)</text>
+
+  <!-- Forwarding Path 1: EX-EX (From EX/MEM) -->
+  <path d="M 981 250 L 981 220 L 640 220 L 640 245 L 650 245" fill="none" stroke="#9333ea" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrow-purple)" />
+  <text x="750" y="215" fill="#9333ea" font-size="10" font-weight="bold">EX-EX Forwarding Path (distance 1)</text>
+
+  <!-- Forwarding Path 2: MEM-EX (From MEM/WB) -->
+  <path d="M 1271 250 L 1271 180 L 630 180 L 630 255 L 650 255" fill="none" stroke="#9333ea" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrow-purple)" />
+  <text x="900" y="175" fill="#9333ea" font-size="10" font-weight="bold">MEM-EX Forwarding Path (distance 2)</text>
+
+  <!-- Branch Target back to PC Mux -->
+  <path d="M 840 495 L 850 495 L 850 440 L 15 440 L 15 325 L 40 325" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrow-red)" />
+  <text x="180" y="435" fill="#dc2626" font-size="11" font-weight="bold">Branch / Jump Target (PC + Imm)</text>
+
+  <!-- Branch Flush Lines -->
+  <path d="M 900 460 L 900 120 L 295 120 L 295 130" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arrow-red)" />
+  <path d="M 610 120 L 610 130" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arrow-red)" />
+  <text x="420" y="112" fill="#dc2626" font-size="11" font-weight="bold">Pipeline Flush (clears IF/ID and ID/EX)</text>
+
+  <!-- Stall Lines from Hazard Unit -->
+  <path d="M 380 815 L 115 815 L 115 350" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-red)" />
+  <path d="M 296 815 L 296 610" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-red)" />
+  <text x="140" y="805" fill="#dc2626" font-size="11" font-weight="bold">Stall (Freezes PC &amp; IF/ID)</text>
+  <path d="M 611 770 L 611 610" fill="none" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow-red)" />
+  <text x="618" y="700" fill="#dc2626" font-size="11" font-weight="bold">ID/EX Flush (Bubble)</text>
+
+</svg>

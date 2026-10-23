@@ -1,0 +1,35 @@
+* RISC-V RV32I Processor: 6-Transistor (6T) SRAM Bit-Cell Model
+* Author: Sumit Pandey | RRU ECE | 2026
+* Represents physical bit storage inside register_file.v and data_memory.v
+
+.param VDD_VAL=1.8V
+
+* Power Supply
+Vdd vdd 0 DC {VDD_VAL}
+
+* Control Signals (Word Line and Bit Lines)
+Vwl  wl  0 PULSE(0 {VDD_VAL} 5n 0.1n 0.1n 10n 30n)
+Vbl  bl  0 PULSE({VDD_VAL} 0 2n 0.1n 0.1n 15n 40n)
+Vblb blb 0 PULSE(0 {VDD_VAL} 2n 0.1n 0.1n 15n 40n)
+
+* Inverter 1 (M1 PMOS pull-up, M3 NMOS pull-down)
+M1 q  qb vdd vdd PMOS W=1u L=0.18u
+M3 q  qb 0   0   NMOS W=1u L=0.18u
+
+* Inverter 2 (M2 PMOS pull-up, M4 NMOS pull-down)
+M2 qb q  vdd vdd PMOS W=1u L=0.18u
+M4 qb q  0   0   NMOS W=1u L=0.18u
+
+* Access Transistors (M5 left, M6 right)
+M5 q  wl bl  0 NMOS W=1.5u L=0.18u
+M6 qb wl blb 0 NMOS W=1.5u L=0.18u
+
+* Generic 180nm CMOS Transistor Models
+.model NMOS NMOS (LEVEL=1 VTO=0.45 KP=180u GAMMA=0.4 LAMBDA=0.02)
+.model PMOS PMOS (LEVEL=1 VTO=-0.45 KP=60u GAMMA=0.4 LAMBDA=0.02)
+
+* Transient Analysis
+.tran 0.1n 60n
+.print tran V(wl) V(bl) V(blb) V(q) V(qb)
+
+.end
