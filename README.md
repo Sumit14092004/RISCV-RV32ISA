@@ -8,7 +8,7 @@
 
 A complete, fully verified 5-stage pipelined processor core implementing the 32-bit RISC-V (RV32I) Base Integer Instruction Set with full hardware hazard handling, forwarding unit, branch resolution, and SystemVerilog assertions.
 
-**Author:** Sumit Pandey | RRU ECE | 2026
+**Author:** Sumit Pandey | RRU EE(VLSI) | 2026
 
 ---
 
