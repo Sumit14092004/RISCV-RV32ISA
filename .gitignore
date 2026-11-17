@@ -33,3 +33,10 @@ riscv_pipeline.sim/sim_1/behav/xsim/xvlog.pb
 # Python
 __pycache__/
 *.pyc
+
+# LaTeX auxiliary files
+*.aux
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
