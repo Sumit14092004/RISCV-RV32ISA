@@ -204,3 +204,10 @@ riscv_pipeline/
 ## License
 
 Academic and educational use. RRU ECE 2026.
+
+## 🖥️ Interactive Presentation & Viva Voce Deck
+
+- **Interactive Presentation Deck (Web App):** Open [`presentation/index.html`](presentation/index.html) or [`docs/presentation/index.html`](docs/presentation/index.html) in any browser for an interactive slide deck featuring a live 5-stage pipeline stepper, submodule Verilog code inspector, waveform explorer, and faculty viva defense cheat-sheet.
+- **PowerPoint Presentation (.pptx):** Download [`docs/RISCV_RV32I_Processor_Presentation.pptx`](docs/RISCV_RV32I_Processor_Presentation.pptx) (13 widescreen slides with embedded figures and architectural tables).
+- **Practical Exam Report (PDF):** Download [`docs/RISCV_RV32I_Practical_Exam_Report.pdf`](docs/RISCV_RV32I_Practical_Exam_Report.pdf) (25 pages under mentor Dr. Keyur Patel).
+- **Overleaf LaTeX Package:** Download [`docs/RISCV_RV32I_Overleaf_Report.zip`](docs/RISCV_RV32I_Overleaf_Report.zip).
