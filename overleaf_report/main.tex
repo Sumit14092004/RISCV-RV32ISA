@@ -1,9 +1,8 @@
-\documentclass[11pt,a4paper]{article}
+\documentclass[10.5pt,a4paper]{article}
 
-\usepackage[top=2.4cm, bottom=2.2cm, left=2.2cm, right=2.2cm, headheight=14.5pt]{geometry}
+\usepackage[top=2.2cm, bottom=2.0cm, left=2.0cm, right=2.0cm, headheight=14.5pt]{geometry}
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{graphicx}
-\usepackage{pdflscape}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{fancyhdr}
@@ -16,22 +15,11 @@
 \usepackage{tocloft}
 \usepackage[colorlinks=true, linkcolor=blue!80!black, urlcolor=blue!80!black, citecolor=blue!80!black]{hyperref}
 
-% Symmetrical Professional Watermark
+% Authentic SASET Watermark Background
 \AddToShipoutPictureBG{
   \begin{tikzpicture}[remember picture, overlay]
-    \node[opacity=0.035, rotate=0] at (current page.center) {
-      \begin{tikzpicture}
-        \draw[line width=1.5pt, gray] (0,0) circle (5.5cm);
-        \draw[line width=0.8pt, dashed, gray] (0,0) circle (4.8cm);
-        \draw[line width=1.2pt, gray] (0,0) circle (4.1cm);
-        \node[font=\fontsize{15}{18}\bfseries\sffamily, text=gray] at (0,3.2) {RASHTRIYA RAKSHA UNIVERSITY};
-        \node[font=\fontsize{12}{15}\bfseries\sffamily, text=gray] at (0,2.3) {SASET $\bullet$ VLSI DESIGN \& TECHNOLOGY};
-        \node[font=\fontsize{11}{14}\bfseries\sffamily, text=gray] at (0,-2.3) {PIONEERING NATIONAL SECURITY};
-        \node[font=\fontsize{10}{13}\bfseries\sffamily, text=gray] at (0,-3.2) {ESTABLISHED 2020 $\bullet$ GANDHINAGAR};
-        % Central Shield / Emblem outline
-        \draw[line width=1.5pt, gray] (-1.5,1) -- (1.5,1) -- (1.5,-0.5) arc(0:-180:1.5cm) -- cycle;
-        \node[font=\fontsize{22}{26}\bfseries\sffamily, text=gray] at (0,0) {RRU};
-      \end{tikzpicture}
+    \node[opacity=0.065] at (current page.center) {
+      \includegraphics[width=12.5cm]{saset_watermark.png}
     };
   \end{tikzpicture}
 }
@@ -40,10 +28,15 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\textbf{Sumit Pandey} (Enr: 240141105831048)}
-\fancyhead[R]{\textnormal{RISC-V RV32I 5-Stage Processor Project Report — SASET, RRU}}
+\fancyhead[R]{\textnormal{RISC-V RV32I Processor Project Report — SASET, RRU}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.5pt}
 \renewcommand{\footrulewidth}{0.5pt}
+
+% Tight TOC formatting to fit cleanly
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\setlength{\cftbeforesecskip}{3pt}
+\setlength{\cftbeforesubsecskip}{1.5pt}
 
 % Code Listing Configuration
 \definecolor{codegreen}{rgb}{0,0.5,0}
@@ -58,214 +51,102 @@
   keywordstyle=\color{blue}\bfseries,
   numberstyle=\tiny\color{codegray},
   stringstyle=\color{codepurple},
-  basicstyle=\ttfamily\footnotesize,
+  basicstyle=\ttfamily\scriptsize,
   breakatwhitespace=false,
   breaklines=true,
   captionpos=b,
   keepspaces=true,
   numbers=left,
-  numbersep=7pt,
+  numbersep=6pt,
   showspaces=false,
   showstringspaces=false,
   showtabs=false,
   tabsize=2,
   frame=single,
   rulecolor=\color{bordercolour},
-  xleftmargin=12pt,
-  framexleftmargin=8pt
+  xleftmargin=10pt,
+  framexleftmargin=6pt
 }
 
 \begin{document}
 
 % =========================================================================
-% TITLE PAGE / FORMAL ACADEMIC COVER
+% COVER PAGE & HEADER (Matching SASET Examination Report Protocol)
 % =========================================================================
-\begin{titlepage}
-  \centering
-  \vspace*{0.5cm}
-  
-  {\Large\textbf{RASHTRIYA RAKSHA UNIVERSITY}}\\[4pt]
-  {\large\textbf{PIONEERING NATIONAL SECURITY AND POLICE UNIVERSITY OF INDIA}}\\[2pt]
-  {\normalsize An Institution of National Importance under Ministry of Home Affairs, Government of India}\\[4pt]
-  {\large\textbf{SCHOOL OF APPLIED SCIENCES, ENGINEERING AND TECHNOLOGY (SASET)}}\\[2pt]
-  {\normalsize Lavad-Dehgam, Gandhinagar - 382305, Gujarat, India}\\[1.2cm]
 
-  \begin{tikzpicture}
-    \draw[line width=1.5pt, color=blue!70!black] (0,0) circle (1.8cm);
-    \draw[line width=0.8pt, dashed, color=blue!70!black] (0,0) circle (1.55cm);
-    \draw[line width=1.2pt, color=orange!80!black] (-0.8,0.6) -- (0.8,0.6) -- (0.8,-0.3) arc(0:-180:0.8cm) -- cycle;
-    \node[font=\fontsize{14}{16}\bfseries\sffamily, text=blue!80!black] at (0,0.1) {RRU};
-    \node[font=\fontsize{7}{9}\bfseries\sffamily, text=orange!80!black] at (0,-0.4) {SASET};
-  \end{tikzpicture}\\[1.0cm]
-
-  {\Large\textbf{MAJOR TECHNICAL PROJECT REPORT}}\\[0.3cm]
-  {\LARGE\textbf{Design, Formal Verification, and FPGA Implementation of a 32-Bit RISC-V RV32I 5-Stage Pipelined Processor}}\\[0.4cm]
-  {\large\textit{Microarchitectural Datapath, Dual-Path Data Forwarding, Internal Write-Through Register Bypass, CMOS 45nm Analog Co-Simulation, and Blockchain Hardware Cryptographic Accelerator}}\\[1.2cm]
-
-  \begin{minipage}{0.48\textwidth}
-    \begin{flushleft} \large
-      \textbf{Submitted by:}\\
-      \textbf{Sumit Pandey}\\
-      Enrollment No: \textbf{240141105831048}\\
-      B.Tech Electronics Engineering\\
-      (Specialization: VLSI Design \& Tech)\\
-      Semester V (Academic Session 2026)
-    \end{flushleft}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.48\textwidth}
-    \begin{flushright} \large
-      \textbf{Under the Guidance of:}\\
-      \textbf{Dr. Keyur Patel}\\
-      Assistant Professor\\
-      School of Applied Sciences, Engineering and Technology (SASET)\\
-      Rashtriya Raksha University
-    \end{flushright}
-  \end{minipage}
-
-  \vfill
-  {\large October 2026}\\[0.2cm]
-  {\small SASET, Rashtriya Raksha University, Gandhinagar, Gujarat - 382305}
-\end{titlepage}
-
-\newpage
-
-% =========================================================================
-% CERTIFICATE OF ENDORSEMENT
-% =========================================================================
-\thispagestyle{plain}
 \begin{center}
-{\Large\textbf{RASHTRIYA RAKSHA UNIVERSITY}}\\[3pt]
-{\large\textbf{SCHOOL OF APPLIED SCIENCES, ENGINEERING AND TECHNOLOGY (SASET)}}\\[10pt]
-{\LARGE\textbf{CERTIFICATE OF APPROVAL}}
+{\Large\textbf{RASHTRIYA RAKSHA UNIVERSITY}}\\[2pt]
+{\large\textbf{SCHOOL OF APPLIED SCIENCES, ENGINEERING AND TECHNOLOGY (SASET)}}\\[4pt]
+{\Large\textbf{32-BIT RISC-V RV32I PIPELINED PROCESSOR PROJECT REPORT}}
 \end{center}
 
-\vspace{0.8cm}
+\vspace{0.15cm}
 
 \noindent
-This is to certify that the project entitled \textbf{``Design, Formal Verification, and FPGA Implementation of a 32-Bit RISC-V RV32I 5-Stage Pipelined Processor''} submitted by \textbf{Sumit Pandey} (Enrollment Number: \textbf{240141105831048}) in partial fulfillment for the award of the degree of \textbf{Bachelor of Technology in Electronics Engineering (Specialization: VLSI Design and Technology)} from the School of Applied Sciences, Engineering and Technology (SASET), Rashtriya Raksha University, Gandhinagar, Gujarat, is a bonafide record of authentic engineering work carried out by him under my supervision and guidance during the academic session 2026.
+\begin{tabular}{|l|p{11.0cm}|}
+\hline
+\textbf{Course Details} & \textbf{Information} \\
+\hline
+\textbf{Course Name} & \textbf{Computer Architecture / VLSI Design (RISC-V RV32I Processor)} \\
+\textbf{Program} & B.Tech Electronics Engineering (Specialization: VLSI Design and Technology) \\
+\textbf{Semester} & V \\
+\textbf{Student Name} & \textbf{Sumit Pandey} \\
+\textbf{Enrollment Number} & \textbf{240141105831048} \\
+\textbf{Date of Submission} & Tuesday, October 27, 2026 \\
+\textbf{Course Faculty / Mentor} & \textbf{Dr. Keyur Patel} \\
+\hline
+\end{tabular}
 
-\vspace{0.6cm}
+\vspace{0.3cm}
+
 \noindent
-The technical content, register-transfer-level (RTL) designs, formal assertions, simulation benchmarks, CMOS 45nm SPICE models, and FPGA synthesis results documented in this report have been independently developed, verified, and demonstrated by the candidate to my complete satisfaction.
-
-\vspace{2.5cm}
-
-\noindent
-\begin{minipage}{0.45\textwidth}
-  \rule{6cm}{0.5pt}\\
-  \textbf{Dr. Keyur Patel}\\
-  Project Mentor \& Assistant Professor\\
-  Department of Electronics Engineering\\
-  SASET, Rashtriya Raksha University
-\end{minipage}
-\hfill
-\begin{minipage}{0.45\textwidth}
-  \begin{flushright}
-  \rule{6cm}{0.5pt}\\
-  \textbf{Head of Department / Dean}\\
-  School of Applied Sciences, Engg. \& Tech.\\
-  Rashtriya Raksha University
-  \end{flushright}
-\end{minipage}
-
-\newpage
-
-% =========================================================================
-% ABSTRACT / EXECUTIVE SUMMARY
-% =========================================================================
-\thispagestyle{plain}
-\section*{Abstract \& Executive Summary}
-\addcontentsline{toc}{section}{Abstract \& Executive Summary}
-
-This technical report presents the architectural design, formal mathematical verification, physical CMOS 45nm analog co-simulation, and FPGA silicon synthesis of a complete 32-bit RISC-V RV32I 5-stage in-order pipelined processor core. Targeting high-throughput, deterministic execution for secure embedded computing and national defense infrastructure, the processor implements all 37 base integer instructions spanning R, I, S, B, U, and J formats.
-
-To maximize instruction throughput and achieve a steady-state performance of 1.0 Cycles Per Instruction (CPI), the processor integrates a comprehensive microarchitectural hazard mitigation architecture consisting of:
-\begin{enumerate}
-  \item \textbf{Dual-Path Operand Forwarding Unit:} Resolves both Distance-1 (EX-to-EX) and Distance-2 (MEM-to-EX) Read-After-Write (RAW) data dependencies in sub-cycle time directly into ALU operands, with strict temporal priority assigned to EX/MEM results.
-  \item \textbf{Internal Write-Through Register File Bypass:} Resolves the critical Distance-3 same-cycle Write-Back to Decode structural conflict combinationally inside the 32-word $\times$ 32-bit register file, eliminating unnecessary pipeline bubbles while hardwiring register $x0 \equiv 0$.
-  \item \textbf{Load-to-Use 1-Cycle Stall Unit:} Synchronously coordinates Program Counter (PC) freeze, IF/ID pipeline register freeze, and synchronous NOP bubble injection (\texttt{0x00000013}) into the ID/EX register when memory load latencies cannot be bypassed.
-  \item \textbf{Control Hazard Speculative Flush Unit:} Evaluates all six conditional branch conditions in the Execute stage via a dedicated hardware comparator, redirecting the PC and executing a synchronous 2-cycle flush of speculatively fetched instructions on branch taken.
-\end{enumerate}
-
-Verification was performed through a multi-tiered methodology: functional simulation in Icarus Verilog and Vivado xsim, formal validation via 100,000+ simulation cycles of SystemVerilog Assertions (SVA) with zero failures, and execution of real-world software algorithms including an iterative Fibonacci sequence generator (68 cycles) and an in-memory array Bubble Sort. 
-
-Bridging digital architecture with physical VLSI design, the storage fabric of the register file was co-simulated at the transistor level in LTspice using 45nm Predictive Technology Models (PTM) at 1.0~V, yielding a read access delay of 185~ps, write delay of 215~ps, and a Static Noise Margin (SNM) of 280~mV. Finally, physical synthesis for the AMD Xilinx Artix-7 FPGA (\texttt{xc7a35tcpg236-1}) achieved complete timing closure at 100~MHz with a positive Worst Negative Slack (WNS) of $+1.424$~ns and lean resource consumption of 1,842 LUTs (8.86\%).
-
-As a forward-looking architectural extension aligned with RRU's national security mandate, an on-chip Blockchain Cryptographic Coprocessor was designed and mapped to the standard RISC-V Custom-0 opcode space (\texttt{0x7B}). The accelerator delivers an 85$\times$ throughput speedup for Keccak-256 and SHA-256 hashing, providing hardware-enforced roots of trust for tamper-proof defense IoT telemetry and sovereign distributed ledgers.
-
-\newpage
-
-% =========================================================================
-% TABLE OF CONTENTS, LIST OF FIGURES, LIST OF TABLES
-% =========================================================================
-\tableofcontents
-\newpage
-\listoffigures
-\vspace{0.8cm}
-\listoftables
-\newpage
-
-% =========================================================================
-% SECTION 1: INTRODUCTION & PROJECT MOTIVATION
-% =========================================================================
-\section{Introduction \& Project Motivation}
-
-\subsection{The RISC-V Architectural Revolution}
-In contemporary computer engineering, the Instruction Set Architecture (ISA) forms the foundational contract between hardware design and software execution. Historically, dominant architectures such as x86 and ARM have been gated by proprietary licensing, complex legacy microcode, and closed intellectual property ecosystems. The emergence of RISC-V—an open, free, clean-slate Reduced Instruction Set Computer (RISC) ISA developed originally at UC Berkeley—has fundamentally transformed computer architecture research, sovereign hardware development, and industrial silicon design.
-
-Characterized by extreme modularity, a minimal base integer specification (RV32I/RV64I), and orthogonal instruction encoding, RISC-V provides an ideal foundation for high-assurance, tamper-proof processing systems. For national security applications, sovereign defense telemetry, and mission-critical embedded controllers, open hardware eliminates undocumented microarchitectural backdoors and facilitates rigorous formal verification.
-
-\subsection{Pipelining Principles \& Throughput Objectives}
-Single-cycle processor architectures execute an entire instruction within a single extended clock period. While conceptually simple, single-cycle execution suffers from severely degraded operating frequencies because the clock period must accommodate the cumulative worst-case propagation delay of all five processing phases:
-\begin{equation}
-T_{\text{single-cycle}} \ge t_{\text{IF}} + t_{\text{ID}} + t_{\text{EX}} + t_{\text{MEM}} + t_{\text{WB}}
-\end{equation}
-In typical 45nm/28nm silicon implementations, this cumulative path restricts clock frequencies to the 15--25~MHz range. Multi-cycle implementations amortize this delay across multiple cycles per instruction ($\text{CPI} \approx 4\text{ to }5$), degrading instruction throughput.
-
-Pipelining overcomes this fundamental constraint by dividing the single datapath into balanced, decoupled stages isolated by synchronous registers. By overlapping the execution of multiple instructions simultaneously, a 5-stage pipeline achieves:
-\begin{equation}
-T_{\text{pipelined}} \ge \max(t_{\text{IF}}, t_{\text{ID}}, t_{\text{EX}}, t_{\text{MEM}}, t_{\text{WB}}) + t_{\text{setup}} + t_{\text{clk-to-q}}
-\end{equation}
-In steady-state operation without dependency stalls, the processor completes one instruction per clock cycle ($\text{CPI} = 1.0$), scaling throughput by nearly $5\times$ over single-cycle architectures.
-
-\subsection{Project Scope \& Core Objectives}
-The central objective of this project is to architect, model, formally verify, and physically synthesize a production-grade 32-bit RISC-V RV32I 5-stage pipelined processor in Verilog HDL. Specifically, the technical scope includes:
+\textbf{Technical Specifications \& Engineering Protocol Compliance}
 \begin{itemize}
-  \item \textbf{Complete Base ISA Coverage:} Synthesizable implementation of all 37 RV32I instructions, including arithmetic, logical, branch, load, store, upper-immediate, and jump operations.
-  \item \textbf{Comprehensive Hazard Resolution:} Hardware Forwarding Unit for distance-1/2 hazards, internal register file write-through combinational bypass for distance-3 hazards, Load-to-Use 1-cycle stall interlocking, and 2-cycle speculative branch flushing.
-  \item \textbf{Formal Verification via SVA:} Integration of concurrent SystemVerilog Assertions to prove architectural invariants ($x0 \equiv 0$, non-blocking stall timing, mutual exclusion of forwarding paths).
-  \item \textbf{VLSI Physical Co-Simulation:} Transistor-level SPICE modeling of the 6T SRAM bitcell in LTspice using 45nm predictive technology models.
-  \item \textbf{FPGA Implementation:} Synthesis, physical placement, and static timing closure at 100~MHz on the AMD Xilinx Artix-7 (\texttt{xc7a35tcpg236-1}) FPGA.
-  \item \textbf{Domain-Specific Extension:} Architectural design of a tightly coupled cryptographic coprocessor mapped to custom opcode \texttt{0x7B} for hardware-accelerated blockchain hashing (Keccak-256 and SHA-256).
+  \setlength\itemsep{1.5pt}
+  \item \textbf{Student Information:} Documented for Sumit Pandey, Enrollment Number: 240141105831048.
+  \item \textbf{Comprehensive Microarchitecture Coverage:} Full 32-bit RISC-V RV32I 5-stage in-order pipelined core (IF, ID, EX, MEM, WB) with 17 verified submodules in synthesizable Verilog HDL.
+  \item \textbf{Hardware Hazard Mitigation:} Combinational dual-path Forwarding Unit (EX-EX, MEM-EX), single-cycle Load-to-Use Hazard Detection Unit, internal WB-to-ID Write-Through Register File Bypass, and 2-cycle speculative branch flush control.
+  \item \textbf{Verification \& Co-Simulation:} 100,000+ formal SVA cycles (0 violations), transistor-level CMOS 45nm SPICE co-simulation in LTspice, and Artix-7 FPGA timing closure at 100 MHz.
+  \item \textbf{Cryptographic Coprocessor:} Dedicated on-chip hardware accelerator for Keccak-256 and SHA-256 mapped to custom opcode \texttt{0x7B} (85$\times$ throughput speedup).
+  \item \textbf{Institutional Emblem:} Subtle SASET watermark embedded symmetrically across every page.
 \end{itemize}
 
-\subsection{Relevance to SASET RRU Mission}
-As an Institution of National Importance under the Ministry of Home Affairs, Rashtriya Raksha University emphasizes indigenous technological capabilities in critical security infrastructure. Designing and verifying a high-performance RISC-V core provides foundational expertise in sovereign hardware security, trusted microelectronics, and secure edge cryptographic processing.
+\vspace{0.2cm}
+\hrule
+\vspace{0.25cm}
+
+\vspace*{-0.2cm}
+\setcounter{tocdepth}{1}
+{\small\tableofcontents}
 
 \newpage
 
-% =========================================================================
-% SECTION 2: RISC-V RV32I INSTRUCTION SET ARCHITECTURE
-% =========================================================================
-\section{RISC-V RV32I ISA Specifications \& Architectural Model}
 
-\subsection{Base Integer Architecture Model}
-The RV32I base integer ISA is designed around a load-store architecture where arithmetic and logical operations operate exclusively on general-purpose registers. The architectural state comprises:
+% =========================================================================
+% SECTION 1: SYSTEM OVERVIEW & RV32I ISA ARCHITECTURAL MODEL
+% =========================================================================
+\section{System Overview \& RV32I ISA Architectural Model}
+
+\subsection{Architectural Scope \& Design Objectives}
+This report documents the architectural design, formal mathematical verification, physical CMOS 45nm analog co-simulation, and FPGA silicon synthesis of a complete 32-bit RISC-V RV32I 5-stage in-order pipelined processor core. The primary design objective is to achieve a deterministic throughput of 1.0 Cycles Per Instruction (CPI) in steady-state execution while operating at a target frequency of 100~MHz on an AMD Xilinx Artix-7 FPGA.
+
+\subsection{RV32I Base Integer ISA Specification}
+The core implements the complete unprivileged base integer instruction set (RV32I), supporting all 37 fundamental instructions across six standardized encoding formats:
 \begin{itemize}
-  \item \textbf{General-Purpose Registers ($x0$ to $x31$):} Thirty-two 32-bit registers. Register $x0$ is hardwired to constant zero ($x0 \equiv 0$). Registers $x1$ to $x31$ hold intermediate operands, stack pointers, return addresses, and function arguments according to the standard RISC-V ABI.
-  \item \textbf{Program Counter (PC):} A 32-bit register holding the byte address of the current instruction. Because instructions are 32 bits (4 bytes) wide, sequential execution increments the PC by $+4$.
-  \item \textbf{Address Space:} A linear 32-bit byte-addressed memory space spanning $2^{32}$ bytes (4~GB).
+  \setlength\itemsep{1pt}
+  \item \textbf{R-Type (Register-Register):} \texttt{ADD}, \texttt{SUB}, \texttt{SLL}, \texttt{SLT}, \texttt{SLTU}, \texttt{XOR}, \texttt{SRL}, \texttt{SRA}, \texttt{OR}, \texttt{AND}.
+  \item \textbf{I-Type (Register-Immediate / Loads):} \texttt{ADDI}, \texttt{SLTI}, \texttt{SLTIU}, \texttt{XORI}, \texttt{ORI}, \texttt{ANDI}, \texttt{SLLI}, \texttt{SRLI}, \texttt{SRAI}, \texttt{LB}, \texttt{LH}, \texttt{LW}, \texttt{LBU}, \texttt{LHU}, \texttt{JALR}.
+  \item \textbf{S-Type (Stores):} \texttt{SB}, \texttt{SH}, \texttt{SW}.
+  \item \textbf{B-Type (Conditional Branches):} \texttt{BEQ}, \texttt{BNE}, \texttt{BLT}, \texttt{BGE}, \texttt{BLTU}, \texttt{BGEU}.
+  \item \textbf{U-Type (Upper Immediate):} \texttt{LUI}, \texttt{AUIPC}.
+  \item \textbf{J-Type (Unconditional Jumps):} \texttt{JAL}.
 \end{itemize}
-
-\subsection{Instruction Encoding Formats}
-The RV32I specification defines six fundamental instruction formats, structured to maximize hardware decoding regularity by keeping source register fields ($rs1$ in bits [19:15], $rs2$ in bits [24:20]) and destination register field ($rd$ in bits [11:7]) in identical bit positions across all formats:
 
 \begin{table}[htbp]
 \centering
-\caption{RV32I Fundamental Instruction Formats and Field Mappings}
+\caption{RV32I Instruction Format Bitfield Layout}
 \label{tab:formats}
-\small
+\scriptsize
 \begin{tabular}{lcccccc}
 \toprule
 \textbf{Format} & \textbf{Bits [31:25]} & \textbf{Bits [24:20]} & \textbf{Bits [19:15]} & \textbf{Bits [14:12]} & \textbf{Bits [11:7]} & \textbf{Bits [6:0]} \\
@@ -280,81 +161,69 @@ The RV32I specification defines six fundamental instruction formats, structured 
 \end{tabular}
 \end{table}
 
-\subsection{Supported Instruction Set Matrix}
-Our RTL implementation provides complete execution support for the full 37-instruction base integer specification:
-\begin{itemize}
-  \item \textbf{Integer Computational Operations (R-Type):} \texttt{ADD}, \texttt{SUB}, \texttt{SLL}, \texttt{SLT}, \texttt{SLTU}, \texttt{XOR}, \texttt{SRL}, \texttt{SRA}, \texttt{OR}, \texttt{AND}.
-  \item \textbf{Immediate Computational Operations (I-Type):} \texttt{ADDI}, \texttt{SLTI}, \texttt{SLTIU}, \texttt{XORI}, \texttt{ORI}, \texttt{ANDI}, \texttt{SLLI}, \texttt{SRLI}, \texttt{SRAI}.
-  \item \textbf{Load Operations (I-Type):} \texttt{LB}, \texttt{LH}, \texttt{LW}, \texttt{LBU}, \texttt{LHU}.
-  \item \textbf{Store Operations (S-Type):} \texttt{SB}, \texttt{SH}, \texttt{SW}.
-  \item \textbf{Conditional Branch Operations (B-Type):} \texttt{BEQ}, \texttt{BNE}, \texttt{BLT}, \texttt{BGE}, \texttt{BLTU}, \texttt{BGEU}.
-  \item \textbf{Upper Immediate Operations (U-Type):} \texttt{LUI} (Load Upper Immediate), \texttt{AUIPC} (Add Upper Immediate to PC).
-  \item \textbf{Unconditional Jump Operations (J-Type \& I-Type):} \texttt{JAL} (Jump and Link), \texttt{JALR} (Jump and Link Register).
-\end{itemize}
+\subsection{Architectural State \& Invariants}
+The programmer-visible state consists of thirty-two 32-bit general-purpose registers ($x0$ to $x31$) and a 32-bit Program Counter (PC). Register $x0$ is hardwired to zero ($x0 \equiv 0$); writes to $x0$ are silently discarded. The address space is 32-bit byte-addressed, with instructions aligned to 4-byte boundaries.
 
-\newpage
+\vspace{0.4cm}
+
 
 % =========================================================================
-% SECTION 3: 5-STAGE PIPELINED MICROARCHITECTURE DATAPATH & WORKING
+% SECTION 2: 5-STAGE PIPELINED DATAPATH MICROARCHITECTURE & WORKING
 % =========================================================================
-\section{5-Stage Pipelined Microarchitecture Datapath \& Working}
+\section{5-Stage Pipelined Datapath Microarchitecture \& Working}
 
-\subsection{Microarchitectural Overview}
-The core is organized as a classical 5-stage in-order pipeline. Instructions advance synchronously through five specialized stages on each rising edge of the system clock. Four inter-stage pipeline registers isolate the combinational logic of adjacent stages:
+\subsection{Microarchitectural Pipeline Partitioning}
+The processor datapath is organized into five balanced, decoupled pipeline stages isolated by synchronous registers. This isolates long combinational delays into balanced execution intervals:
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig1_architecture.png}
+  \caption{Comprehensive 5-stage RISC-V RV32I microarchitecture schematic showing all 17 verified submodules, pipeline isolation registers, dual forwarding paths, and hazard feedback lines.}
+  \label{fig:arch}
+\end{figure}
+
+\subsection{Stage-by-Stage Functional Working}
 \begin{enumerate}
-  \item \textbf{IF/ID Register:} Buffers the fetched 32-bit instruction word and current PC.
-  \item \textbf{ID/EX Register:} Buffers decoded register operands, sign-extended immediates, PC, and all execution control signals.
-  \item \textbf{EX/MEM Register:} Buffers the ALU result, memory write data, branch status, and memory control signals.
-  \item \textbf{MEM/WB Register:} Buffers memory read data and the computed ALU result to the Write-Back stage.
+  \setlength\itemsep{2pt}
+  \item \textbf{Instruction Fetch (IF):} Fetches 32-bit instruction words from the 4KB Instruction Memory addressed by the Program Counter (PC). A dedicated parallel adder computes $\text{PC} + 4$. When a branch or jump is taken in EX, the PC multiplexer loads the branch target address instead. A synchronous stall signal inhibits PC updates during load dependencies.
+  \item \textbf{Instruction Decode (ID):} The main Control Unit decodes the 7-bit opcode into pipelined control signals. Operands $rs1$ and $rs2$ are read from the 32$\times$32 Register File. The Immediate Generator extracts sign-extended constants for I, S, B, U, and J formats.
+  \item \textbf{Execution (EX):} A 32-bit ALU performs arithmetic and logic operations. Dedicated forwarding multiplexers select the freshest operands from the EX/MEM or MEM/WB stages. Concurrently, a branch target adder computes $\text{PC}_{\text{target}} = \text{PC}_{\text{ex}} + \text{Imm}_{\text{ex}}$, and a hardware Branch Comparator evaluates conditional branch outcomes.
+  \item \textbf{Memory Access (MEM):} Interfaces with a 4KB synchronous Data RAM. It executes load and store instructions with byte-enable write masking and proper sign/zero-extension for byte and half-word transfers.
+  \item \textbf{Write-Back (WB):} Selects between memory read data and the ALU result via a multiplexer, driving the final value onto the writeback bus to latch into register $rd$ on clock posedge.
 \end{enumerate}
 
-% FULL-PAGE LANDSCAPE FIGURE 1
-\begin{landscape}
-\begin{figure}[p]
-  \centering
-  \vspace*{-0.4cm}
-  \includegraphics[width=0.96\linewidth]{figures/fig1_architecture.png}
-  \vspace{0.2cm}
-  \caption{Comprehensive 5-stage RISC-V RV32I microarchitecture schematic showing all 17 verified submodules, inter-stage isolation registers, dual-path operand forwarding buses (EX-EX and MEM-EX), write-back feedback bus, branch redirect path, and synchronous hazard stall/flush networks.}
-  \label{fig:arch_full}
-\end{figure}
-\end{landscape}
+\subsection{Integrated Submodule Hierarchy}
+Table~\ref{tab:submodules} enumerates the 17 verified submodules integrated within the top-level core:
 
-\subsection{Stage-by-Stage Operational Working}
-
-\subsubsection{Stage 1: Instruction Fetch (IF)}
-The Instruction Fetch stage is responsible for continuously supplying 32-bit instruction words to the pipeline:
-\begin{itemize}
-  \item \textbf{PC Multiplexer:} Selects the next fetch address among:
-    \begin{equation}
-    \text{PC}_{\text{next}} = 
-    \begin{cases}
-      \text{PC}_{\text{target}}, & \text{if branch or jump taken in EX} \\
-      \text{PC} + 4, & \text{during normal sequential execution}
-    \end{cases}
-    \end{equation}
-  \item \textbf{Program Counter Register:} Synchronous 32-bit register enabled by the inverted stall signal ($\overline{\text{stall}}$). When a hazard is detected, PC updates are inhibited, holding the current address.
-  \item \textbf{Instruction Memory:} Modeled as a 4KB ROM (1024 words $\times$ 32 bits) indexed by word address $\text{PC}[11:2]$.
-  \item \textbf{Sequential Adder:} Dedicated 32-bit carry-lookahead adder computing $\text{PC} + 4$ in parallel with memory access.
-\end{itemize}
-
-\subsubsection{Stage 2: Instruction Decode (ID) \& Register Access}
-The Decode stage interprets the instruction fields and extracts operands:
-\begin{itemize}
-  \item \textbf{Control Unit:} Combinational decoder mapping opcode[6:0] into pipelined control signals: \texttt{reg\_write}, \texttt{alu\_src}, \texttt{mem\_to\_reg}, \texttt{mem\_read}, \texttt{mem\_write}, \texttt{branch}, and \texttt{alu\_op[1:0]}.
-  \item \textbf{Register File:} 32-word $\times$ 32-bit dual-read, single-write array. Registers $rs1 = \text{instr}[19:15]$ and $rs2 = \text{instr}[24:20]$ are read combinationally. Writes occur synchronously on $\text{posedge clk}$ when $\text{reg\_write} = 1$ and $rd \ne 0$.
-  \item \textbf{Immediate Generator:} Extracts and sign-extends 12-bit, 20-bit, and 21-bit immediate constants according to the decoded format.
-\end{itemize}
-
-\subsubsection{Stage 3: Execute (EX) \& ALU Computation}
-The Execute stage performs all arithmetic, logical, and branch decisions:
-\begin{itemize}
-  \item \textbf{Forwarding Multiplexers:} 3-to-1 multiplexers on ALU inputs selecting between register file outputs, EX/MEM forwarded result, and MEM/WB forwarded result.
-  \item \textbf{32-Bit Arithmetic Logic Unit (ALU):} Executes operations determined by the 4-bit ALU control code, including signed/unsigned addition, subtraction, logical AND/OR/XOR, and arithmetic/logical shifts.
-  \item \textbf{ALU Control Unit:} Combines 2-bit \texttt{alu\_op} with \texttt{funct3} and \texttt{funct7[5]} to differentiate operations (e.g., \texttt{ADD} vs \texttt{SUB}, \texttt{SRL} vs \texttt{SRA}).
-  \item \textbf{Branch Target Adder:} Computes $\text{PC}_{\text{target}} = \text{PC}_{\text{ex}} + \text{Imm}_{\text{ex}}$ concurrently with ALU operations.
-  \item \textbf{Branch Comparator:} Dedicated hardware evaluating conditional branch equality and magnitude comparisons.
-\end{itemize}
+\begin{table}[htbp]
+\centering
+\caption{Hierarchy of the 17 Integrated Submodules Across the 5 Pipeline Stages}
+\label{tab:submodules}
+\scriptsize
+\begin{tabular}{rlll}
+\toprule
+\textbf{\#} & \textbf{Module Name} & \textbf{Stage} & \textbf{Functional Role} \\
+\midrule
+1  & \texttt{pc\_reg}                 & IF     & Synchronous 32-bit Program Counter with active-low stall enable \\
+2  & \texttt{pc\_adder}               & IF     & Dedicated carry-lookahead sequential incrementer ($\text{PC} + 4$) \\
+3  & \texttt{instruction\_memory}      & IF     & 4KB byte-addressable ROM preloaded with \texttt{program.hex} \\
+4  & \texttt{if\_id\_reg}              & IF/ID  & Synchronous buffer with stall freeze and speculative flush \\
+5  & \texttt{control\_unit}            & ID     & Opcode decoder generating 8 primary pipelined control lines \\
+6  & \texttt{register\_file}           & ID     & 32$\times$32 RegFile with internal write-through combinational bypass \\
+7  & \texttt{imm\_gen}                 & ID     & Sign-extension immediate decoder for all instruction formats \\
+8  & \texttt{id\_ex\_reg}              & ID/EX  & Synchronous buffer injecting NOP bubble on load-to-use stall \\
+9  & \texttt{alu}                      & EX     & 32-bit arithmetic, logical, and barrel-shifter core (10 operations) \\
+10 & \texttt{alu\_control}             & EX     & Secondary decoder mapping funct3/funct7 to 4-bit ALU code \\
+11 & \texttt{forwarding\_unit}         & EX     & Dual-path operand hazard forwarding logic \\
+12 & \texttt{branch\_comparator}       & EX     & Hardware comparator evaluating all 6 conditional branch types \\
+13 & \texttt{branch\_target\_adder}    & EX     & Computes PC-relative branch/jump target ($\text{PC} + \text{Imm}$) \\
+14 & \texttt{ex\_mem\_reg}             & EX/MEM & Transfers ALU results, store data, and memory controls \\
+15 & \texttt{data\_memory}             & MEM    & 4KB synchronous Data RAM with byte, half-word, and word masking \\
+16 & \texttt{mem\_wb\_reg}             & MEM/WB & Transfers memory read data and ALU result to Write-Back stage \\
+17 & \texttt{hazard\_detection\_unit}  & Global & Interlock controller managing PC/IF-ID stall and ID/EX bubble \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{figure}[htbp]
   \centering
@@ -363,110 +232,33 @@ The Execute stage performs all arithmetic, logical, and branch decisions:
   \label{fig:alu_ops}
 \end{figure}
 
-\subsubsection{Stage 4: Memory Access (MEM)}
-The Memory stage interfaces with the data storage fabric:
-\begin{itemize}
-  \item \textbf{Data Memory:} 4KB synchronous RAM organized as 1024 words $\times$ 32 bits. Read data is sampled combinationally; write operations occur synchronously on clock edge gated by \texttt{mem\_write}.
-  \item \textbf{Alignment Controller:} Handles byte, half-word, and word memory transactions with proper sign-extension logic for \texttt{LB}, \texttt{LH}, and zero-extension for \texttt{LBU}, \texttt{LHU}.
-\end{itemize}
+\vspace{0.4cm}
 
-\subsubsection{Stage 5: Write-Back (WB)}
-The Write-Back stage finalizes instruction retirement:
-\begin{itemize}
-  \item \textbf{Write-Back Multiplexer:} 2-to-1 multiplexer selecting between the memory read data ($\text{mem\_to\_reg} = 1$) and the ALU result ($\text{mem\_to\_reg} = 0$).
-  \item \textbf{Register File Drive:} The selected 32-bit data is placed on the writeback bus, presented to register port $rd$, and latched into the register file on the next rising clock edge.
-\end{itemize}
-
-\subsection{Submodule Hierarchy \& Port Interface Specifications}
-Table~\ref{tab:submodules} enumerates the 17 integrated submodules comprising the complete processor RTL:
-
-\begin{table}[htbp]
-\centering
-\caption{Complete Submodule Hierarchy and Functional Responsibilities}
-\label{tab:submodules}
-\small
-\begin{tabular}{rlll}
-\toprule
-\textbf{\#} & \textbf{Module Name} & \textbf{Stage} & \textbf{Primary Functional Role} \\
-\midrule
-1  & \texttt{pc\_reg}                 & IF     & Synchronous 32-bit Program Counter with stall gate \\
-2  & \texttt{pc\_adder}               & IF     & Parallel sequential incrementer ($\text{PC} + 4$) \\
-3  & \texttt{instruction\_memory}      & IF     & 4KB Instruction ROM initialized via \texttt{program.hex} \\
-4  & \texttt{if\_id\_reg}              & IF/ID  & Inter-stage pipeline buffer with stall and flush controls \\
-5  & \texttt{control\_unit}            & ID     & Opcode decoder generating 8 primary pipeline control signals \\
-6  & \texttt{register\_file}           & ID     & 32$\times$32 RegFile with internal write-through combinational bypass \\
-7  & \texttt{imm\_gen}                 & ID     & Sign-extension unit for I, S, B, U, and J immediate formats \\
-8  & \texttt{id\_ex\_reg}              & ID/EX  & Inter-stage pipeline buffer with synchronous bubble injection \\
-9  & \texttt{alu}                      & EX     & 32-bit arithmetic, logic, and barrel-shifter core \\
-10 & \texttt{alu\_control}             & EX     & Secondary decoder mapping funct3/funct7 to 4-bit ALU code \\
-11 & \texttt{forwarding\_unit}         & EX     & Dual-path operand hazard forwarding logic \\
-12 & \texttt{branch\_comparator}       & EX     & Dedicated hardware comparator for all 6 branch conditions \\
-13 & \texttt{branch\_target\_adder}    & EX     & Computes relative branch target address ($\text{PC} + \text{Imm}$) \\
-14 & \texttt{ex\_mem\_reg}             & EX/MEM & Inter-stage buffer transferring ALU results and store data \\
-15 & \texttt{data\_memory}             & MEM    & 4KB synchronous Data RAM with byte-enable write masking \\
-16 & \texttt{mem\_wb\_reg}             & MEM/WB & Inter-stage buffer passing memory read and ALU data to WB \\
-17 & \texttt{hazard\_detection\_unit}  & Global & Load-to-Use stall detector and pipeline interlock controller \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\newpage
 
 % =========================================================================
-% SECTION 4: PIPELINE HAZARD MITIGATION & INTERLOCKING MECHANICS
+% SECTION 3: MICROARCHITECTURAL HAZARD MITIGATION & FORWARDING
 % =========================================================================
-\section{Pipeline Hazard Mitigation, Forwarding \& Interlocking}
-
-\subsection{Taxonomy of Pipelining Hazards}
-In an ideal pipeline, every stage executes useful work every cycle, yielding $\text{CPI} = 1.0$. However, real instruction streams exhibit resource conflicts and temporal dependencies known as hazards:
-\begin{enumerate}
-  \item \textbf{Data Hazards:} An instruction depends on the result of an earlier instruction that is still in flight in the pipeline.
-  \item \textbf{Structural Hazards:} Two instructions require the same physical hardware resource simultaneously.
-  \item \textbf{Control Hazards:} The next fetch address depends on the outcome of a conditional branch that has not yet completed evaluation.
-\end{enumerate}
+\section{Microarchitectural Hazard Mitigation \& Forwarding}
 
 \subsection{Data Hazard Resolution: Dual-Path Operand Forwarding}
-To prevent stalling on computational dependencies, our Forwarding Unit routes results from later pipeline stages directly to the inputs of the ALU in the Execute stage.
-
-\subsubsection{Distance-1 Hazard (EX-to-EX Forwarding)}
-Occurs when instruction $i$ in EX/MEM produces a result required by instruction $i+1$ in ID/EX:
-\begin{equation}
-\text{Trigger: } (\text{EX/MEM.RegWrite} == 1) \land (\text{EX/MEM.rd} \ne 0) \land (\text{EX/MEM.rd} == \text{ID/EX.rs1})
-\end{equation}
-When satisfied, \texttt{forward\_a} asserts \texttt{2'b10}, routing the EX/MEM ALU result directly into ALU operand A.
-
-\subsubsection{Distance-2 Hazard (MEM-to-EX Forwarding)}
-Occurs when instruction $i$ in MEM/WB produces a result required by instruction $i+2$ in ID/EX:
-\begin{equation}
-\text{Trigger: } (\text{MEM/WB.RegWrite} == 1) \land (\text{MEM/WB.rd} \ne 0) \land (\text{MEM/WB.rd} == \text{ID/EX.rs1})
-\end{equation}
-When satisfied, \texttt{forward\_a} asserts \texttt{2'b01}, routing the MEM/WB writeback data directly into ALU operand A.
-
-\subsubsection{Priority Precedence Logic}
-When both EX/MEM and MEM/WB write to the same destination register, the \textbf{EX/MEM stage takes strict precedence} because it holds the chronologically newest value:
-\begin{lstlisting}[language=Verilog]
-always @(*) begin
-    // Forward A Logic with Priority Precedence
-    if (mem_reg_write && (mem_rd != 5'd0) && (mem_rd == ex_rs1))
-        forward_a = 2'b10; // Distance-1 EX hazard takes top priority
-    else if (wb_reg_write && (wb_rd != 5'd0) && (wb_rd == ex_rs1))
-        forward_a = 2'b01; // Distance-2 MEM hazard
-    else
-        forward_a = 2'b00; // No forwarding
-end
-\end{lstlisting}
+Data hazards occur when an instruction requires an operand generated by an earlier instruction still executing in the pipeline. Rather than stalling, the \texttt{forwarding\_unit} routes operands in sub-cycle time directly to the ALU inputs:
+\begin{itemize}
+  \item \textbf{Distance-1 (EX-to-EX Forwarding):} Triggered when $\text{EX/MEM.RegWrite} = 1$, $\text{EX/MEM.rd} \ne 0$, and $\text{EX/MEM.rd} == \text{ID/EX.rs}$. Routes the ALU result from the EX/MEM register directly into the ALU operand input (\texttt{forward = 2'b10}).
+  \item \textbf{Distance-2 (MEM-to-EX Forwarding):} Triggered when $\text{MEM/WB.RegWrite} = 1$, $\text{MEM/WB.rd} \ne 0$, and $\text{MEM/WB.rd} == \text{ID/EX.rs}$. Routes writeback data from the MEM/WB register directly into the ALU input (\texttt{forward = 2'b01}).
+  \item \textbf{Priority Precedence Logic:} When both EX/MEM and MEM/WB write to the same register, **EX/MEM takes strict priority** because it holds the chronologically newest value.
+\end{itemize}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig4_forwarding_hazard.png}
-  \caption{Simulation waveform proving sub-cycle operand forwarding with zero stalls during back-to-back dependent ALU operations.}
+  \includegraphics[width=0.88\textwidth]{figures/fig4_forwarding_hazard.png}
+  \caption{Waveform demonstrating sub-cycle operand forwarding (\texttt{forward\_a=2'b10}, \texttt{forward\_b=2'b01}) with 0 stalls during continuous ALU execution.}
   \label{fig:fwd_wave}
 \end{figure}
 
 \subsection{Distance-3 RAW Hazard: Internal RegFile Write-Through Bypass}
-In a 5-stage pipeline, instruction $i$ writes back to register $rd$ in WB during the same clock cycle that instruction $i+3$ reads register $rs1$ in ID. Because standard RAM arrays write on $\text{posedge clk}$ while reading combinationally, reading without bypassing outputs stale pre-write data.
+In a 5-stage pipeline, instruction $i$ writes back to register $rd$ in WB on clock posedge, while instruction $i+3$ reads $rs1$ in ID during the exact same clock cycle. Standard RAM arrays output stale pre-write data under same-cycle access. 
 
-Rather than wasting a clock cycle stalling, we implemented internal combinational write-through bypass logic inside \texttt{register\_file.v}:
+We eliminated this hazard without stalling by implementing internal combinational write-through bypass logic inside \texttt{register\_file.v}:
 \begin{lstlisting}[language=Verilog]
 assign read_data1 = (rs1 == 5'd0) ? 32'd0 :
                     ((rs1 == rd && reg_write) ? write_data : registers[rs1]);
@@ -477,63 +269,62 @@ assign read_data2 = (rs2 == 5'd0) ? 32'd0 :
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig2_raw_hazard.png}
-  \caption{Simulation waveform capturing the Distance-3 RAW hazard: internal bypass combinationally supplies new write data to read\_data1 in the identical clock cycle.}
+  \includegraphics[width=0.88\textwidth]{figures/fig2_raw_hazard.png}
+  \caption{Waveform capturing the Distance-3 RAW hazard: internal bypass combinationally supplies new write data to \texttt{read\_data1} in the identical clock cycle.}
   \label{fig:raw_wave}
 \end{figure}
 
+\vspace{0.4cm}
+
+
 \subsection{Structural Hazard: Load-to-Use 1-Cycle Synchronous Stall Unit}
-When an instruction reads data from memory (\texttt{LW}), data is unavailable until the MEM stage completes. An immediately following dependent instruction requires the operand at the start of the EX stage. Because data cannot travel backward in time, forwarding alone cannot resolve this hazard.
+When an instruction reads data from memory (\texttt{LW}), data is not available until the end of the MEM stage. An immediately following dependent instruction requires the operand at the start of the EX stage. Because data cannot travel backward in time, forwarding alone cannot resolve this condition.
 
 The Hazard Detection Unit monitors this condition:
 \begin{equation}
 \text{Stall Condition: } \text{id\_ex\_mem\_read} \land ((\text{id\_ex\_rd} == \text{if\_id\_rs1}) \lor (\text{id\_ex\_rd} == \text{if\_id\_rs2}))
 \end{equation}
 
-When asserted, a synchronized three-way hardware response occurs:
+When asserted, a synchronized three-way hardware interlock occurs:
 \begin{enumerate}
+  \setlength\itemsep{1pt}
   \item \textbf{Freeze PC Register:} Inhibits PC update, forcing re-fetch of the dependent instruction.
   \item \textbf{Freeze IF/ID Register:} Retains the current instruction word for decode in the next cycle.
   \item \textbf{Inject Bubble into ID/EX:} Clears all control signals to zero, converting the ID/EX slot into a synchronous NOP bubble (\texttt{0x00000013}).
 \end{enumerate}
 
 \subsection{Control Hazards: Branch Evaluation \& Speculative Flush}
-Branch conditions are evaluated in the EX stage. If the condition is false, execution proceeds uninterrupted (0 penalty). If true:
-\begin{enumerate}
-  \item The computed $\text{PC}_{\text{target}}$ is multiplexed into the PC.
-  \item A synchronous \texttt{flush} signal clears both the \textbf{IF/ID} and \textbf{ID/EX} registers to NOP.
-\end{enumerate}
+Conditional branches (\texttt{BEQ, BNE, BLT, BGE, BLTU, BGEU}) are evaluated in the EX stage using a dedicated hardware Branch Comparator comparing forwarded operands in real time.
+\begin{itemize}
+  \setlength\itemsep{1pt}
+  \item \textbf{Branch Not Taken:} Execution falls through sequentially with **zero cycle penalty**.
+  \item \textbf{Branch Taken:} The computed branch target $\text{PC}_{\text{target}}$ is loaded into the PC, and a synchronous \texttt{flush} signal clears both the **IF/ID** and **ID/EX** registers to NOP, discarding two speculatively fetched instructions with a deterministic 2-cycle penalty.
+\end{itemize}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig5_branch_flush.png}
+  \includegraphics[width=0.88\textwidth]{figures/fig5_branch_flush.png}
   \caption{Simulation waveform demonstrating branch resolution in the EX stage, redirecting PC to target address 0x00000020 and flushing two speculative instructions.}
   \label{fig:branch_flush}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig1b_pipeline_timing.png}
-  \caption{5-Stage pipeline execution progression timeline across instruction streams illustrating forwarding, Load-to-Use bubble injection, and branch flush.}
+  \includegraphics[width=0.88\textwidth]{figures/fig1b_pipeline_timing.png}
+  \caption{Pipeline execution progression timeline across instruction streams illustrating forwarding, Load-to-Use bubble injection, and branch flush.}
   \label{fig:timing_chart}
 \end{figure}
 
-\newpage
+\vspace{0.4cm}
+
 
 % =========================================================================
-% SECTION 5: TRANSISTOR-LEVEL ANALOG CO-SIMULATION (CMOS 45nm VLSI)
+% SECTION 4: TRANSISTOR-LEVEL ANALOG CO-SIMULATION (CMOS 45nm VLSI)
 % =========================================================================
-\section{Transistor-Level Analog Co-Simulation (CMOS 45nm VLSI Modeling)}
+\section{Transistor-Level Analog Co-Simulation (CMOS 45nm VLSI)}
 
-\subsection{Bridging RTL Architecture with Physical Silicon}
-A core strength of this project within SASET RRU's VLSI Design \& Technology mandate is connecting high-level digital computer architecture with physical semiconductor physics. While RTL simulations assume idealized zero-delay wires and instantaneous flip-flop switching, physical silicon implementation is constrained by parasitic capacitances, threshold voltages, and transistor drive currents.
-
-\subsection{6T SRAM Register Bitcell SPICE Topology}
-To rigorously model the physical storage element of the Register File, a classical 6-Transistor (6T) SRAM bitcell was constructed in LTspice using 45nm Predictive Technology Models (PTM). The circuit topology comprises:
-\begin{itemize}
-  \item \textbf{Cross-Coupled CMOS Inverters ($M_1$--$M_4$):} Form the bistable storage element holding internal nodes $Q$ and $\overline{Q}$. Sized with driver pull-down NMOS ($W/L = 90\text{nm}/45\text{nm}$) and load pull-up PMOS ($W/L = 60\text{nm}/45\text{nm}$).
-  \item \textbf{Access Transistors ($M_5$, $M_6$):} Symmetrical pass-gate NMOS transistors ($W/L = 65\text{nm}/45\text{nm}$) gated by the Wordline (WL) connecting to complementary Bitlines (BL and $\overline{\text{BL}}$).
-\end{itemize}
+\subsection{Physical Storage Modeling in LTspice}
+To bridge high-level digital RTL architecture with physical semiconductor physics, the storage fabric of the Register File was co-simulated at the transistor level in LTspice using **45nm Predictive Technology Models (PTM)** at $V_{DD} = 1.0\text{ V}$.
 
 \begin{figure}[htbp]
   \centering
@@ -542,34 +333,28 @@ To rigorously model the physical storage element of the Register File, a classic
   \label{fig:spice_sim}
 \end{figure}
 
-\subsection{Transient Timing Analysis \& Noise Margin Results}
-The bitcell was simulated under transient conditions with supply voltage $V_{DD} = 1.0\text{ V}$ and input rise/fall times $t_r = t_f = 20\text{ ps}$:
+\subsection{Physical SPICE Metrics}
+The 6T SRAM bitcell was simulated under transient conditions with input rise/fall times $t_r = t_f = 20\text{ ps}$:
 \begin{itemize}
-  \item \textbf{Read Access Delay ($t_{\text{read}}$):} The time from Wordline assertion (50\% $V_{DD}$) to a $\Delta V = 100\text{ mV}$ differential between BL and $\overline{\text{BL}}$ was measured at \textbf{185 picoseconds}.
-  \item \textbf{Write Propagation Delay ($t_{\text{write}}$):} The time from Wordline assertion to the full state flip of internal node $Q$ from logic-0 to logic-1 was measured at \textbf{215 picoseconds}.
-  \item \textbf{Static Noise Margin (SNM):} Derived from the maximum nested square within the static Voltage Transfer Characteristic (VTC) butterfly curve, yielding $\text{SNM} = \textbf{280 mV}$ ($28\%$ of $V_{DD}$). This confirms high immunity against supply noise and cross-talk.
-  \item \textbf{Dynamic Switching Power:} Under continuous 100~MHz clock toggling, the bitcell dissipated \textbf{14.2 $\mu$W}.
+  \setlength\itemsep{2pt}
+  \item \textbf{Read Access Delay ($t_{\text{read}}$):} The delay from Wordline assertion (50\% $V_{DD}$) to a $\Delta V = 100\text{ mV}$ differential between BL and $\overline{\text{BL}}$ was measured at **185 picoseconds**.
+  \item \textbf{Write Propagation Delay ($t_{\text{write}}$):} The delay from Wordline assertion to the full state flip of internal storage node $Q$ from logic-0 to logic-1 was measured at **215 picoseconds**.
+  \item \textbf{Static Noise Margin (SNM):} Derived from the maximum nested square within the static Voltage Transfer Characteristic (VTC) butterfly curve, yielding $\text{SNM} = \mathbf{280\text{ mV}}$ (28\% of $V_{DD}$).
+  \item \textbf{Dynamic Switching Power:} Under continuous 100~MHz clock toggling, dynamic power dissipation was measured at **14.2 $\mu$W**.
 \end{itemize}
 
-These physical parameters validate that the register file can support read/write frequencies exceeding 1.0~GHz in 45nm CMOS, proving that our 100~MHz clock target on FPGA operates well within physical silicon safety margins.
+These sub-nanosecond physical delays confirm that the register file can support operational frequencies well above 1.0~GHz in 45nm CMOS, verifying that our 100~MHz clock target on FPGA operates with substantial physical timing margins.
 
-\newpage
+\vspace{0.4cm}
+
 
 % =========================================================================
-% SECTION 6: FUNCTIONAL & FORMAL VERIFICATION FRAMEWORK
+% SECTION 5: VERIFICATION METHODOLOGY: FORMAL SVA & BENCHMARKS
 % =========================================================================
-\section{Verification Methodology, Formal Assertions \& Benchmarks}
+\section{Verification Methodology: Formal SVA \& Benchmarks}
 
-\subsection{Multi-Tiered Verification Strategy}
-Verification was structured across three complementary tiers:
-\begin{enumerate}
-  \item \textbf{Functional RTL Simulation:} Unit-level testbenches for all 17 submodules followed by top-level integration testing in Icarus Verilog and AMD Xilinx Vivado xsim.
-  \item \textbf{Formal Verification via SystemVerilog Assertions (SVA):} Invariant checking running concurrently with simulation.
-  \item \textbf{Algorithmic Software Benchmarks:} Compilation and execution of real software programs exercising deep data loops and memory arrays.
-\end{enumerate}
-
-\subsection{Formal Verification: SystemVerilog Assertions (SVA)}
-The formal testbench (\texttt{tb\_riscv\_pipeline\_sva.sv}) defines concurrent assertion properties evaluated on every clock edge:
+\subsection{Formal Verification via SystemVerilog Assertions (SVA)}
+To rigorously verify microarchitectural safety properties, an exhaustive formal SystemVerilog Assertions testbench (\texttt{tb\_riscv\_pipeline\_sva.sv}) was developed to monitor processor invariants on every clock cycle:
 
 \begin{figure}[htbp]
   \centering
@@ -579,75 +364,66 @@ The formal testbench (\texttt{tb\_riscv\_pipeline\_sva.sv}) defines concurrent a
 \end{figure}
 
 \begin{itemize}
-  \item \textbf{Property 1 (Register Zero Immutability):} Formally proves that register $x0$ is never overwritten:
+  \setlength\itemsep{2pt}
+  \item \textbf{Register Zero Invariant:} Proves that register $x0$ is permanently zero under all conditions:
     \begin{lstlisting}[language=Verilog]
 assert property (@(posedge clk) (u_dut.u_regfile.registers[0] == 32'b0))
     else $fatal("SVA Violation: Register x0 corrupted!");
     \end{lstlisting}
-  \item \textbf{Property 2 (Forwarding Mutual Exclusion):} Guarantees that forwarding multiplexers never enter undefined control states (\texttt{2'b11}):
+  \item \textbf{Forwarding Mutual Exclusion:} Guarantees that forwarding multiplexers never enter undefined states:
     \begin{lstlisting}[language=Verilog]
 assert property (@(posedge clk) disable iff (reset)
     (u_dut.forward_a != 2'b11 && u_dut.forward_b != 2'b11))
     else $fatal("SVA Violation: Illegal forwarding state 2'b11 detected!");
     \end{lstlisting}
-  \item \textbf{Property 3 (Load-to-Use Stall Trigger Immediacy):} Formally proves that the stall signal asserts in the exact cycle a load dependency is decoded:
+  \item \textbf{Load-to-Use Stall Immediacy:} Confirms that the stall interlock triggers in the exact cycle a load dependency is decoded:
     \begin{lstlisting}[language=Verilog]
 assert property (@(posedge clk) disable iff (reset)
     (u_dut.id_ex_mem_read && (u_dut.id_ex_rd == u_dut.if_id_rs1)) |-> (u_dut.stall == 1'b1))
     else $fatal("SVA Violation: Stall failed to trigger on Load-to-Use hazard!");
     \end{lstlisting}
 \end{itemize}
+Across 100,000+ continuous simulation cycles in Icarus Verilog and Vivado xsim, **zero assertion failures** occurred.
 
-Across more than 100,000 continuous simulation cycles, \textbf{zero SVA assertion failures} were reported.
-
-\subsection{Algorithmic Benchmark 1: Fibonacci Sequence Generation}
-The Fibonacci benchmark computes the sequence $F_n = F_{n-1} + F_{n-2}$ ($F_0=0, F_1=1$) iteratively in register $x10$:
-\begin{equation}
-\langle 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 \rangle
-\end{equation}
-The algorithm executed to completion in \textbf{68 clock cycles}, exercising tight distance-1 RAW hazards, immediate additions, and branch loop counters without incurring a single stall bubble.
+\subsection{Algorithmic Software Benchmarks}
+\begin{enumerate}
+  \item \textbf{Fibonacci Benchmark:} Computes the sequence $F_n = F_{n-1} + F_{n-2}$ ($F_0=0, F_1=1$) iteratively in register $x10$, successfully generating $F_{10} = 55$ in 68 clock cycles with zero stalls.
+  \item \textbf{In-Memory Bubble Sort Benchmark:} Sorts an unordered 5-element array initialized in Data Memory at address \texttt{0x00000050} ($[9, 4, 7, 1, 3] \rightarrow [1, 3, 4, 7, 9]$), exercising nested loops, memory loads (\texttt{LW}), stores (\texttt{SW}), and signed branch comparisons (\texttt{BGE}) with zero memory corruption.
+\end{enumerate}
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig7_fibonacci.png}
-  \caption{Simulation waveform verifying iterative Fibonacci sequence calculation resulting in $F_{10} = 55$ (\texttt{0x00000037}) in register $x10$.}
-  \label{fig:fib_wave}
+  \begin{minipage}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{figures/fig7_fibonacci.png}
+    \caption{Fibonacci sequence waveform ($F_{10}=55$).}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \includegraphics[width=\textwidth]{figures/fig8_bubble_sort.png}
+    \caption{In-memory Bubble Sort waveform.}
+  \end{minipage}
 \end{figure}
 
-\subsection{Algorithmic Benchmark 2: In-Memory Array Bubble Sorting}
-The Bubble Sort benchmark sorts an unordered 5-element array initialized in Data Memory at address \texttt{0x00000050}:
-\begin{equation}
-\text{Initial Array: } [9, 4, 7, 1, 3] \quad \xrightarrow{\text{Execution}} \quad \text{Sorted Array: } [1, 3, 4, 7, 9]
-\end{equation}
+\vspace{0.4cm}
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.92\textwidth]{figures/fig8_bubble_sort.png}
-  \caption{Simulation waveform proving in-place Bubble Sorting of array in Data Memory, verifying nested loops, memory loads, stores, and conditional branches.}
-  \label{fig:sort_wave}
-\end{figure}
-
-The benchmark validated nested loop counters, memory pointer arithmetic, load instructions (\texttt{LW}), store instructions (\texttt{SW}), and signed branch comparisons (\texttt{BGE}) with \textbf{zero memory corruption}.
-
-\newpage
 
 % =========================================================================
-% SECTION 7: FPGA SYNTHESIS, IMPLEMENTATION & TIMING CLOSURE
+% SECTION 6: AMD XILINX VIVADO 2022.2 FPGA SYNTHESIS & TIMING
 % =========================================================================
-\section{FPGA Synthesis, Physical Implementation \& Timing Closure}
+\section{AMD Xilinx Vivado 2022.2 FPGA Synthesis \& Timing}
 
-\subsection{Target Silicon: AMD Xilinx Artix-7 xc7a35t}
-Physical synthesis and implementation were carried out using **AMD Xilinx Vivado 2022.2** targeting the Artix-7 \texttt{xc7a35tcpg236-1} FPGA. The Artix-7 architecture features 28nm high-k metal gate (HKMG) technology optimized for low power and high transceiver performance.
+\subsection{FPGA Implementation Setup}
+The synthesizable RTL was synthesized and implemented in **AMD Xilinx Vivado 2022.2** targeting the **Artix-7 \texttt{xc7a35tcpg236-1}** FPGA under a strict 100.0 MHz clock constraint ($T_{\text{clk}} = 10.000\text{ ns}$).
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.92\textwidth]{figures/fig10_vivado_synthesis.png}
-  \caption{Vivado 2022.2 synthesis dashboard showing resource utilization and timing closure for the RV32I 5-stage pipelined processor core.}
+  \caption{Vivado 2022.2 synthesis dashboard showing resource utilization and timing closure for the RV32I core.}
   \label{fig:vivado_dash}
 \end{figure}
 
-\subsection{Resource Utilization Breakdown}
-Table~\ref{tab:utilization} summarizes the post-implementation resource utilization report:
+\subsection{Resource Utilization Profile}
+Table~\ref{tab:utilization} reports post-implementation resource utilization:
 
 \begin{table}[htbp]
 \centering
@@ -670,38 +446,26 @@ Table~\ref{tab:utilization} summarizes the post-implementation resource utilizat
 \end{tabular}
 \end{table}
 
-The design consumes less than 9\% of available logic slices, leaving substantial area for on-chip caches and domain-specific accelerators.
-
-\subsection{Static Timing Analysis \& 100 MHz Timing Closure}
-Timing constraints were defined for a target operating frequency of **100.0 MHz** (Clock Period $T_{\text{clk}} = 10.000\text{ ns}$). Static Timing Analysis (STA) confirmed complete timing closure:
+\subsection{Static Timing Analysis \& Timing Closure}
+Static Timing Analysis (STA) verified complete timing closure:
 \begin{itemize}
-  \item \textbf{Worst Negative Slack (WNS):} $\mathbf{+1.424\text{ ns}}$ (Positive slack—Zero timing violations).
+  \setlength\itemsep{1pt}
+  \item \textbf{Target Frequency:} 100.000 MHz ($T_{\text{period}} = 10.000\text{ ns}$).
+  \item \textbf{Worst Negative Slack (WNS):} $\mathbf{+1.424\text{ ns}}$ (Positive slack; zero timing violations).
   \item \textbf{Total Negative Slack (TNS):} $\mathbf{0.000\text{ ns}}$.
-  \item \textbf{Worst Hold Slack (WHS):} $\mathbf{+0.182\text{ ns}}$.
-  \item \textbf{Maximum Achievable Frequency ($F_{\text{max}}$):}
-    \begin{equation}
-    F_{\text{max}} = \frac{1}{T_{\text{clk}} - \text{WNS}} = \frac{1}{10.000\text{ ns} - 1.424\text{ ns}} = \frac{1}{8.576\text{ ns}} \approx \mathbf{116.6\text{ MHz}}
-    \end{equation}
+  \item \textbf{Critical Path Delay:} $8.576\text{ ns}$ (ID/EX register clock-to-Q $\rightarrow$ forwarding multiplexer $\rightarrow$ ALU 32-bit adder chain $\rightarrow$ EX/MEM register setup).
+  \item \textbf{Maximum Achievable Frequency ($F_{\text{max}}$):} $\mathbf{116.6\text{ MHz}}$.
 \end{itemize}
 
-\subsection{Critical Path Decomposition}
-The critical timing path spans a total delay of $8.576\text{ ns}$:
-\begin{enumerate}
-  \item Clock-to-Q delay of the \texttt{id\_ex\_reg} flip-flops: $0.482\text{ ns}$.
-  \item Forwarding multiplexer propagation delay: $0.620\text{ ns}$.
-  \item ALU 32-bit arithmetic carry-propagation chain: $6.840\text{ ns}$.
-  \item Routing delay to \texttt{ex\_mem\_reg} inputs: $0.424\text{ ns}$.
-  \item Setup time ($t_{\text{setup}}$) of destination register: $0.210\text{ ns}$.
-\end{enumerate}
+\vspace{0.4cm}
 
-\newpage
 
 % =========================================================================
-% SECTION 8: FUTURE ASPECTS & ADVANCED ARCHITECTURAL EXTENSIONS
+% SECTION 7: FUTURE ASPECTS: BLOCKCHAIN CRYPTOGRAPHIC HARDWARE ACCELERATOR
 % =========================================================================
-\section{Future Aspects \& Advanced Architectural Extensions}
+\section{Future Aspects: Blockchain Cryptographic Accelerator}
 
-\subsection{Blockchain Hardware Cryptographic Accelerator}
+\subsection{Hardware Cryptography Acceleration for zkVM \& Ledgers}
 Decentralized ledgers and zero-knowledge virtual machines (zkVM) require continuous evaluation of cryptographic hash functions such as Keccak-256 (Ethereum) and SHA-256 (Bitcoin). In software, executing one Keccak-256 permutation round on a 32-bit RV32I core requires approximately 2,400 clock cycles due to complex bitwise $\theta, \rho, \pi, \chi, \iota$ lane transformations.
 
 \begin{figure}[htbp]
@@ -711,53 +475,51 @@ Decentralized ledgers and zero-knowledge virtual machines (zkVM) require continu
   \label{fig:crypto_arch}
 \end{figure}
 
+\subsection{Coprocessor Microarchitecture \& Instruction Interface}
 We architected a dedicated on-chip hardware coprocessor integrated into the Execute stage via the standard RISC-V reserved **Custom-0 Opcode (\texttt{0x7B})**:
 \begin{equation}
 \texttt{.insn r 0x7B, 0x0, 0x01, x10, x11, x12}
 \end{equation}
 
-The coprocessor executes one full Keccak permutation round in a single clock cycle, completing a 24-round block digest in only **28 clock cycles—an 85$\times$ performance acceleration**. In national defense applications, this coprocessor enables:
+The coprocessor executes one full Keccak permutation round in a single clock cycle, completing a 24-round block digest in only **28 clock cycles—an 85$\times$ performance acceleration**. Key applications include:
 \begin{itemize}
+  \setlength\itemsep{1pt}
   \item \textbf{Tamper-Proof IoT Telemetry:} Secure sensor data streams authenticated directly at the silicon edge.
-  \item \textbf{Hardware Root of Trust:} On-chip private key signing for sovereign military communications.
-  \item \textbf{Low-Power Edge zk-Rollups:} Zero-knowledge proof verification on battery-powered field hardware.
+  \item \textbf{Hardware Root of Trust:} On-chip private key signing for sovereign communications.
+  \item \textbf{Low-Power Edge zk-Rollups:} Zero-knowledge proof verification on battery-powered edge hardware.
 \end{itemize}
 
 \subsection{Microarchitectural Scaling Roadmap}
 Future iterations will incorporate:
 \begin{enumerate}
-  \item \textbf{Dynamic Branch Prediction:} Replacing the static branch model with a 2-bit saturating counter branch prediction table and a Branch Target Buffer (BTB), reducing branch penalties from 2 cycles to near-zero.
-  \item \textbf{Level-1 Cache Hierarchy:} Integrating separate 16KB 2-way set-associative Instruction and Data Caches with write-back and pseudo-LRU replacement policies.
-  \item \textbf{Standard ISA Extensions:} Adding the \textbf{M-Extension} (Hardware Multiplier/Divider) and \textbf{C-Extension} (16-bit Compressed Instructions) to double code density.
-  \item \textbf{Superscalar Dual-Issue Pipeline:} Expanding the datapath to fetch and execute two instructions in parallel ($\text{CPI} \rightarrow 0.5$).
+  \setlength\itemsep{1pt}
+  \item \textbf{Dynamic Branch Prediction:} 2-bit saturating counter branch prediction table and Branch Target Buffer (BTB).
+  \item \textbf{L1 Cache Hierarchy:} Separate 16KB 2-way set-associative Instruction and Data Caches.
+  \item \textbf{ISA Extensions:} Adding the \textbf{M-Extension} (Hardware Multiplier/Divider) and \textbf{C-Extension} (16-bit Compressed Instructions).
+  \item \textbf{ASIC Tapeout Flow:} RTL-to-GDSII physical implementation using OpenROAD targeting the SkyWater 130nm (SKY130) open PDK.
 \end{enumerate}
 
-\subsection{ASIC Physical Design Flow (GDSII Tapeout Roadmap)}
-The synthesizable RTL has been structured for automated physical design using the open-source **OpenROAD** flow targeting the **SkyWater 130nm (SKY130)** open process design kit (PDK). The tapeout flow encompasses automated logic synthesis, floorplanning, Power Distribution Network (PDN) synthesis, placement, Clock Tree Synthesis (CTS), routing, and Design Rule Checking (DRC) for fabrication.
+\vspace{0.4cm}
 
-\newpage
 
 % =========================================================================
-% SECTION 9: CONCLUSION & SUMMARY OF ACHIEVEMENTS
+% SECTION 8: CONCLUSION & REFERENCES
 % =========================================================================
-\section{Conclusion \& Summary of Contributions}
+\section{Conclusion \& References}
 
+\subsection{Conclusion}
 This project successfully designed, formally verified, and physically implemented a complete 32-bit RISC-V RV32I 5-stage in-order pipelined processor core:
 \begin{itemize}
-  \item \textbf{RTL Integrity:} 17 modular submodules written in clean, synthesizable Verilog HDL supporting all 37 base integer instructions.
-  \item \textbf{Full Hazard Immunity:} Dual-path forwarding, internal write-through register bypass, 1-cycle Load-to-Use stall interlocking, and 2-cycle speculative branch flushing operating seamlessly to preserve a steady-state 1.0 CPI.
-  \item \textbf{Mathematical Safety:} Zero assertion violations across 100,000+ simulation cycles under formal SystemVerilog Assertions.
+  \setlength\itemsep{1pt}
+  \item \textbf{Synthesizable RTL:} 17 modular submodules written in clean Verilog HDL supporting all 37 base instructions.
+  \item \textbf{Hazard Immunity:} Dual-path forwarding, internal write-through register bypass, 1-cycle Load-to-Use stall interlocking, and 2-cycle speculative branch flushing operating seamlessly to preserve a steady-state 1.0 CPI.
+  \item \textbf{Formal Verification:} Zero assertion violations across 100,000+ simulation cycles under formal SVA properties.
   \item \textbf{Software Execution:} 100\% numerical accuracy on iterative Fibonacci generation and in-memory array Bubble Sorting.
   \item \textbf{VLSI Physics Synergy:} 45nm CMOS SPICE co-simulation confirming 185~ps read latency and 280~mV Static Noise Margin.
   \item \textbf{FPGA Timing Closure:} Synthesized on AMD Xilinx Artix-7 (\texttt{xc7a35t}) at 100~MHz with $+1.424$~ns positive slack.
   \item \textbf{Open Source Release:} Complete RTL, testbenches, simulation scripts, and documentation made publicly available on GitHub at \url{https://github.com/Sumit14092004/RISCV-RV32ISA}.
 \end{itemize}
 
-\newpage
-
-% =========================================================================
-% REFERENCES
-% =========================================================================
 \begin{thebibliography}{99}
 \bibitem{waterman2019}
 A.~Waterman and K.~Asanovi\'{c}, \emph{The RISC-V Instruction Set Manual, Volume I: User-Level ISA, Document Version 20191213}, RISC-V International, Dec. 2019.
@@ -777,95 +539,5 @@ AMD Xilinx Inc., \emph{Vivado Design Suite User Guide: Synthesis}, UG901 (v2022.
 \bibitem{keccak2011}
 G.~Bertoni, J.~Daemen, M.~Peeters, and G.~Van Assche, ``The Keccak SHA-3 Submission,'' \emph{Submission to NIST (Round 3)}, Jan. 2011.
 \end{thebibliography}
-
-\newpage
-
-% =========================================================================
-% APPENDIX: SELECTED CORE VERILOG RTL MODULES
-% =========================================================================
-\appendix
-\section{Selected Core Verilog RTL Source Modules}
-
-\subsection{Register File with Internal Write-Through Bypass (\texttt{register\_file.v})}
-\begin{lstlisting}[language=Verilog]
-module register_file (
-    input  wire        clk,
-    input  wire        reg_write,
-    input  wire [4:0]  rs1,
-    input  wire [4:0]  rs2,
-    input  wire [4:0]  rd,
-    input  wire [31:0] write_data,
-    output wire [31:0] read_data1,
-    output wire [31:0] read_data2
-);
-    reg [31:0] registers [31:0];
-
-    // Combinational internal write-through bypass:
-    // If reading the register being written in the same cycle, bypass write_data immediately.
-    // Register x0 is unconditionally hardwired to 32'd0.
-    assign read_data1 = (rs1 == 5'd0) ? 32'd0 :
-                        ((rs1 == rd && reg_write) ? write_data : registers[rs1]);
-
-    assign read_data2 = (rs2 == 5'd0) ? 32'd0 :
-                        ((rs2 == rd && reg_write) ? write_data : registers[rs2]);
-
-    always @(posedge clk) begin
-        if (reg_write && (rd != 5'd0)) begin
-            registers[rd] <= write_data;
-        end
-    end
-endmodule
-\end{lstlisting}
-
-\subsection{Dual-Path Data Forwarding Unit (\texttt{forwarding\_unit.v})}
-\begin{lstlisting}[language=Verilog]
-module forwarding_unit (
-    input  wire [4:0] ex_rs1,
-    input  wire [4:0] ex_rs2,
-    input  wire [4:0] mem_rd,
-    input  wire       mem_reg_write,
-    input  wire [4:0] wb_rd,
-    input  wire       wb_reg_write,
-    output reg  [1:0] forward_a,
-    output reg  [1:0] forward_b
-);
-    always @(*) begin
-        // Forward A: Priority to EX/MEM (most temporally recent computation)
-        if (mem_reg_write && (mem_rd != 5'd0) && (mem_rd == ex_rs1))
-            forward_a = 2'b10; // EX hazard
-        else if (wb_reg_write && (wb_rd != 5'd0) && (wb_rd == ex_rs1))
-            forward_a = 2'b01; // MEM hazard
-        else
-            forward_a = 2'b00; // No hazard
-
-        // Forward B: Priority to EX/MEM
-        if (mem_reg_write && (mem_rd != 5'd0) && (mem_rd == ex_rs2))
-            forward_b = 2'b10; // EX hazard
-        else if (wb_reg_write && (wb_rd != 5'd0) && (wb_rd == ex_rs2))
-            forward_b = 2'b01; // MEM hazard
-        else
-            forward_b = 2'b00; // No hazard
-    end
-endmodule
-\end{lstlisting}
-
-\subsection{Hazard Detection \& Stall Unit (\texttt{hazard\_detection\_unit.v})}
-\begin{lstlisting}[language=Verilog]
-module hazard_detection_unit (
-    input  wire       id_ex_mem_read,
-    input  wire [4:0] id_ex_rd,
-    input  wire [4:0] if_id_rs1,
-    input  wire [4:0] if_id_rs2,
-    output reg        stall
-);
-    always @(*) begin
-        // Detect Load-to-Use hazard: dependent instruction requires load data in EX
-        if (id_ex_mem_read && ((id_ex_rd == if_id_rs1) || (id_ex_rd == if_id_rs2)))
-            stall = 1'b1;
-        else
-            stall = 1'b0;
-    end
-endmodule
-\end{lstlisting}
 
 \end{document}
