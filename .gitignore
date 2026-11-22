@@ -40,3 +40,11 @@ __pycache__/
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
