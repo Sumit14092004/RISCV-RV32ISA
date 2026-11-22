@@ -48,7 +48,7 @@ def add_header(slide, title_text, category_text="RISC-V RV32I 5-STAGE PROCESSOR 
     p_title.font.color.rgb = NAVY
     p_title.space_before = Pt(3)
 
-def add_footer(slide, current_slide, total_slides=13):
+def add_footer(slide, current_slide, total_slides=14):
     footer_box = slide.shapes.add_textbox(Inches(0.8), Inches(7.05), Inches(11.7), Inches(0.35))
     tf = footer_box.text_frame
     tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
@@ -137,7 +137,7 @@ p3.space_before = Pt(4)
 s2 = prs.slides.add_slide(blank_layout)
 set_slide_background(s2)
 add_header(s2, "Executive Summary & Core Architectural Achievements", "System Overview")
-add_footer(s2, 2)
+add_footer(s2, 2, total_slides=14)
 
 # 4 Key Stat Cards
 stats = [
@@ -205,46 +205,57 @@ for title, btext in bullets:
     run.font.color.rgb = DARK_TEXT
 
 # -------------------------------------------------------------
-# SLIDE 3: Datapath Architecture & 17 Submodules
+# SLIDE 3: Datapath Architecture (Full Maximum Size Schematic)
 # -------------------------------------------------------------
 s3 = prs.slides.add_slide(blank_layout)
 set_slide_background(s3)
-add_header(s3, "Comprehensive 5-Stage RV32I Datapath Microarchitecture", "Hardware Design")
-add_footer(s3, 3)
+add_header(s3, "Comprehensive 5-Stage RV32I Datapath Microarchitecture", "Hardware Microarchitecture")
+add_footer(s3, 3, total_slides=14)
 
-# Add architecture image
+# Full maximum size architectural diagram card
+create_card(s3, 0.8, 1.35, 11.733, 5.6, bg_color=WHITE, border_color=BORDER_COLOR)
+
+# Add architecture image centered and scaled to maximum readable size
 arch_img = "overleaf_report/figures/fig1_architecture.png"
 if os.path.exists(arch_img):
-    s3.shapes.add_picture(arch_img, Inches(0.8), Inches(1.5), width=Inches(8.2))
+    # Image aspect ratio 1.82:1 -> height 5.45 in, width 9.92 in
+    s3.shapes.add_picture(arch_img, Inches(1.71), Inches(1.42), height=Inches(5.45))
 
-# Submodule summary table on the right
-create_card(s3, 9.2, 1.5, 3.333, 5.3)
-tb_mods = s3.shapes.add_textbox(Inches(9.35), Inches(1.65), Inches(3.0), Inches(5.0))
-tf_mods = tb_mods.text_frame
-tf_mods.word_wrap = True
+# -------------------------------------------------------------
+# SLIDE 4: 17 Architectural Submodules: Stage-by-Stage Breakdown
+# -------------------------------------------------------------
+s4 = prs.slides.add_slide(blank_layout)
+set_slide_background(s4)
+add_header(s4, "17 Integrated Submodules: Stage-by-Stage Breakdown", "Hardware Specifications")
+add_footer(s4, 4, total_slides=14)
 
-p = tf_mods.paragraphs[0]
-p.text = "17 Integrated Submodules:"
+# 2 Large Cards: Stages 1-3 on Left, Stages 4-5 & Global on Right
+create_card(s4, 0.8, 1.45, 5.7, 5.4)
+tb_mods1 = s4.shapes.add_textbox(Inches(1.0), Inches(1.6), Inches(5.3), Inches(5.1))
+tf_mods1 = tb_mods1.text_frame
+tf_mods1.word_wrap = True
+
+p = tf_mods1.paragraphs[0]
+p.text = "Stages 1 to 3 (Fetch, Decode, Execute):"
 p.font.size = Pt(13)
 p.font.bold = True
 p.font.color.rgb = NAVY
 
-stage_mods = [
-    ("IF Stage", "PC, PC Adder (+4), Instruction Memory (4KB byte-addressed)"),
-    ("IF/ID Reg", "Holds PC & 32-bit fetched instruction with stall/flush pins"),
-    ("ID Stage", "Control Unit, 32x32 RegFile (x0=0), Immediate Generator"),
-    ("ID/EX Reg", "Pipelined controls (ALUOp, RegWrite, MemRead, etc.)"),
-    ("EX Stage", "32-bit ALU (10 ops), ALU Control, Forwarding Unit, Branch Comparator"),
-    ("EX/MEM Reg", "Holds ALU result, write data, branch status"),
-    ("MEM Stage", "Data Memory (4KB RAM, byte/half/word support)"),
-    ("MEM/WB Reg", "Buffers read data & ALU result to Write-Back"),
-    ("WB Stage", "Write-Back Multiplexer to Register File rd"),
-    ("Hazard Unit", "Global stall detection & bubble injection")
+left_mods = [
+    ("1. Program Counter (PC): ", "32-bit register with synchronous enable/stall and reset controls."),
+    ("2. PC Adder (+4): ", "Dedicated 32-bit parallel carry-lookahead adder for sequential fetch."),
+    ("3. Instruction Memory: ", "4KB byte-addressable ROM initialized via program.hex."),
+    ("4. IF/ID Pipeline Register: ", "Holds 32-bit instruction and PC with freeze (stall) & synchronous flush."),
+    ("5. Main Control Unit: ", "Decodes 7-bit opcode into 8 primary pipelined control signals."),
+    ("6. 32x32 Register File: ", "32 general-purpose registers with hardwired x0=0 and internal write-through bypass."),
+    ("7. Immediate Generator: ", "Sign-extends I, S, B, U, and J-type immediate bit fields."),
+    ("8. ID/EX Pipeline Register: ", "Isolates Decode and Execute; synchronously inserts NOP bubble on stall."),
+    ("9. 32-Bit ALU: ", "Performs 10 RV32I arithmetic and logic operations (ADD, SUB, SLL, SLT, XOR, etc.).")
 ]
 
-for stg, desc in stage_mods:
-    p = tf_mods.add_paragraph()
-    p.text = f"{stg}: "
+for title, desc in left_mods:
+    p = tf_mods1.add_paragraph()
+    p.text = f"• {title}"
     p.font.size = Pt(10)
     p.font.bold = True
     p.font.color.rgb = ORANGE
@@ -254,13 +265,47 @@ for stg, desc in stage_mods:
     run.font.bold = False
     run.font.color.rgb = DARK_TEXT
 
+create_card(s4, 6.8, 1.45, 5.7, 5.4)
+tb_mods2 = s4.shapes.add_textbox(Inches(7.0), Inches(1.6), Inches(5.3), Inches(5.1))
+tf_mods2 = tb_mods2.text_frame
+tf_mods2.word_wrap = True
+
+p = tf_mods2.paragraphs[0]
+p.text = "Stages 4 & 5 (Memory, Writeback) + Hazard Units:"
+p.font.size = Pt(13)
+p.font.bold = True
+p.font.color.rgb = NAVY
+
+right_mods = [
+    ("10. ALU Control Unit: ", "Decodes funct3/funct7 and alu_src to generate 4-bit ALU control code."),
+    ("11. Forwarding Unit: ", "Resolves EX-EX (distance-1) and MEM-EX (distance-2) RAW hazards."),
+    ("12. Branch Comparator: ", "Dedicated hardware unit in EX stage evaluating all 6 conditional branches."),
+    ("13. EX/MEM Pipeline Register: ", "Passes ALU result, write-data, and branch status to Memory stage."),
+    ("14. Data Memory: ", "4KB synchronous RAM supporting byte, half-word, and word memory operations."),
+    ("15. MEM/WB Pipeline Register: ", "Buffers memory read data and ALU result into the Write-Back stage."),
+    ("16. Write-Back Multiplexer: ", "Selects between memory read data and ALU result to drive rd bus."),
+    ("17. Hazard Detection Unit: ", "Monitors load-to-use dependencies; coordinates PC/IF-ID freeze and ID/EX bubble.")
+]
+
+for title, desc in right_mods:
+    p = tf_mods2.add_paragraph()
+    p.text = f"• {title}"
+    p.font.size = Pt(10)
+    p.font.bold = True
+    p.font.color.rgb = BLUE
+    p.space_before = Pt(3)
+    run = p.add_run()
+    run.text = desc
+    run.font.bold = False
+    run.font.color.rgb = DARK_TEXT
+
 # -------------------------------------------------------------
-# SLIDE 4: Data Hazards & Dual-Path Forwarding Unit
+# SLIDE 5: Data Hazards & Dual-Path Forwarding Unit
 # -------------------------------------------------------------
 s4 = prs.slides.add_slide(blank_layout)
 set_slide_background(s4)
 add_header(s4, "Data Hazards: Dual-Path Operand Forwarding Unit", "Hazard Resolution")
-add_footer(s4, 4)
+add_footer(s4, 5, total_slides=14)
 
 fwd_img = "overleaf_report/figures/fig4_forwarding_hazard.png"
 if os.path.exists(fwd_img):
@@ -299,12 +344,12 @@ for title, desc in fwd_rules:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 5: Distance-3 RAW Hazard: Internal RegFile Bypass
+# SLIDE 6: Distance-3 RAW Hazard: Internal RegFile Bypass
 # -------------------------------------------------------------
 s5 = prs.slides.add_slide(blank_layout)
 set_slide_background(s5)
 add_header(s5, "Distance-3 RAW Hazard: Internal RegFile Write-Through Bypass", "Critical RTL Fix")
-add_footer(s5, 5)
+add_footer(s5, 6, total_slides=14)
 
 raw_img = "overleaf_report/figures/fig2_raw_hazard.png"
 if os.path.exists(raw_img):
@@ -342,12 +387,12 @@ for title, desc in raw_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 6: Load-to-Use Stall Unit
+# SLIDE 7: Load-to-Use Stall Unit
 # -------------------------------------------------------------
 s6 = prs.slides.add_slide(blank_layout)
 set_slide_background(s6)
 add_header(s6, "Structural Hazard: Load-to-Use 1-Cycle Stall Logic", "Pipeline Interlocking")
-add_footer(s6, 6)
+add_footer(s6, 7, total_slides=14)
 
 timing_img = "overleaf_report/figures/fig1b_pipeline_timing.png"
 if os.path.exists(timing_img):
@@ -386,12 +431,12 @@ for title, desc in stall_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 7: Control Hazards & Branch Pipeline Flush
+# SLIDE 8: Control Hazards & Branch Pipeline Flush
 # -------------------------------------------------------------
 s7 = prs.slides.add_slide(blank_layout)
 set_slide_background(s7)
 add_header(s7, "Control Hazards: Branch Evaluation & Dual-Stage Pipeline Flush", "Control Flow")
-add_footer(s7, 7)
+add_footer(s7, 8, total_slides=14)
 
 br_img = "overleaf_report/figures/fig5_branch_flush.png"
 if os.path.exists(br_img):
@@ -430,12 +475,12 @@ for title, desc in br_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 8: Formal Verification with SystemVerilog Assertions
+# SLIDE 9: Formal Verification with SystemVerilog Assertions
 # -------------------------------------------------------------
 s8 = prs.slides.add_slide(blank_layout)
 set_slide_background(s8)
 add_header(s8, "Formal Verification: SystemVerilog Assertions (SVA) Testbench", "Verification")
-add_footer(s8, 8)
+add_footer(s8, 9, total_slides=14)
 
 sva_img = "overleaf_report/figures/fig6_sva_verification.png"
 if os.path.exists(sva_img):
@@ -474,12 +519,12 @@ for title, desc in sva_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 9: Complex Algorithms: Fibonacci & Bubble Sort
+# SLIDE 10: Complex Algorithms: Fibonacci & Bubble Sort
 # -------------------------------------------------------------
 s9 = prs.slides.add_slide(blank_layout)
 set_slide_background(s9)
 add_header(s9, "Algorithm Verification: Fibonacci Series & In-Place Bubble Sort", "Software Execution")
-add_footer(s9, 9)
+add_footer(s9, 10, total_slides=14)
 
 # 2 side-by-side images
 fib_img = "overleaf_report/figures/fig7_fibonacci.png"
@@ -519,12 +564,12 @@ p3.font.color.rgb = BLUE
 p3.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 10: Analog CMOS 45nm Register Cell Co-Simulation
+# SLIDE 11: Analog CMOS 45nm Register Cell Co-Simulation
 # -------------------------------------------------------------
 s10 = prs.slides.add_slide(blank_layout)
 set_slide_background(s10)
 add_header(s10, "Transistor-Level Co-Simulation: CMOS 45nm Register Bitcell", "VLSI SPICE Modeling")
-add_footer(s10, 10)
+add_footer(s10, 11, total_slides=14)
 
 spice_img = "overleaf_report/figures/fig9_spice_simulation.png"
 if os.path.exists(spice_img):
@@ -563,12 +608,12 @@ for title, desc in spice_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 11: Vivado FPGA Synthesis & Timing Closure
+# SLIDE 12: Vivado FPGA Synthesis & Timing Closure
 # -------------------------------------------------------------
 s11 = prs.slides.add_slide(blank_layout)
 set_slide_background(s11)
 add_header(s11, "FPGA Implementation: Vivado Synthesis & 100 MHz Timing Closure", "Hardware Synthesis")
-add_footer(s11, 11)
+add_footer(s11, 12, total_slides=14)
 
 viv_img = "overleaf_report/figures/fig10_vivado_synthesis.png"
 if os.path.exists(viv_img):
@@ -606,12 +651,12 @@ for title, desc in viv_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 12: Blockchain Cryptographic Coprocessor
+# SLIDE 13: Blockchain Cryptographic Coprocessor
 # -------------------------------------------------------------
 s12 = prs.slides.add_slide(blank_layout)
 set_slide_background(s12)
 add_header(s12, "Future Scope: Blockchain Cryptographic Coprocessor Integration", "Advanced Extension")
-add_footer(s12, 12)
+add_footer(s12, 13, total_slides=14)
 
 chain_img = "overleaf_report/figures/fig11_blockchain_coprocessor.png"
 if os.path.exists(chain_img):
@@ -650,12 +695,12 @@ for title, desc in chain_points:
     p2.space_before = Pt(2)
 
 # -------------------------------------------------------------
-# SLIDE 13: Summary & Defense Viva Voce Q&A Cheat Sheet
+# SLIDE 14: Summary & Defense Viva Voce Q&A Cheat Sheet
 # -------------------------------------------------------------
 s13 = prs.slides.add_slide(blank_layout)
 set_slide_background(s13)
 add_header(s13, "Summary of Achievements & Faculty Defense Cheat Sheet", "Conclusion & Viva Voce")
-add_footer(s13, 13)
+add_footer(s13, 14, total_slides=14)
 
 # 2 Cards: Left Summary, Right Viva Q&A
 create_card(s13, 0.8, 1.5, 5.7, 5.3)

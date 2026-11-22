@@ -3,6 +3,7 @@
 \usepackage[top=2.4cm, bottom=2.2cm, left=2.2cm, right=2.2cm, headheight=14.5pt]{geometry}
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{graphicx}
+\usepackage{pdflscape}
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{fancyhdr}
@@ -187,12 +188,16 @@ endmodule
 \end{lstlisting}
 
 \subsection{Waveforms and Results}
-\begin{figure}[htbp]
+\begin{landscape}
+\begin{figure}[p]
   \centering
-  \includegraphics[width=0.98\textwidth]{figures/fig1_architecture.png}
+  \vspace*{-0.5cm}
+  \includegraphics[width=0.96\linewidth]{figures/fig1_architecture.png}
+  \vspace{0.2cm}
   \caption{Comprehensive 5-stage RISC-V RV32I microarchitecture schematic showing all 17 submodules, forwarding networks, hazard stall lines, and writeback paths.}
   \label{fig:arch}
 \end{figure}
+\end{landscape}
 
 \begin{figure}[htbp]
   \centering

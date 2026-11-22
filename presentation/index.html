@@ -573,33 +573,49 @@
 
     <!-- SLIDE 3: Datapath Microarchitecture -->
     <div class="slide" id="slide-3">
-      <div class="slide-eyebrow">Microarchitecture Implementation</div>
-      <h2 class="slide-title">Complete 5-Stage RV32I Processor Schematic</h2>
-      <p class="slide-desc">High-resolution schematic showing all 17 submodules, pipeline isolation registers, dual-path forwarding multiplexers, and hazard feedback networks.</p>
-
-      <div class="grid-2" style="align-items:start;">
-        <div class="figure-box">
-          <img src="figures/fig1_architecture.png" alt="Architecture Schematic" style="max-height:460px; width:auto;">
-          <div class="figure-caption">Figure 1: Full RISC-V RV32I Datapath Schematic with 17 verified submodules (Razor-sharp Chrome-rendered vector conversion).</div>
-        </div>
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:14px;">
         <div>
-          <div class="card" style="margin-bottom:16px;">
-            <div class="card-title" style="color:var(--accent-orange);">Interactive Module Hotspots</div>
-            <p style="font-size:12px; color:var(--text-secondary); margin:6px 0 12px 0;">Click any module below to inspect its RTL implementation and port mapping:</p>
-            <div>
-              <span class="hotspot-chip" onclick="showModule('alu')">alu.v (32-Bit ALU)</span>
-              <span class="hotspot-chip" onclick="showModule('regfile')">register_file.v (32x32)</span>
-              <span class="hotspot-chip" onclick="showModule('fwd')">forwarding_unit.v</span>
-              <span class="hotspot-chip" onclick="showModule('hazard')">hazard_detection_unit.v</span>
-              <span class="hotspot-chip" onclick="showModule('branch')">branch_comparator.v</span>
-              <span class="hotspot-chip" onclick="showModule('ctrl')">control_unit.v</span>
-              <span class="hotspot-chip" onclick="showModule('dmem')">data_memory.v</span>
-              <span class="hotspot-chip" onclick="showModule('imem')">instruction_memory.v</span>
-            </div>
+          <div class="slide-eyebrow">Microarchitecture Implementation</div>
+          <h2 class="slide-title" style="margin-bottom:4px;">Complete 5-Stage RV32I Processor Schematic</h2>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button class="btn-tool" onclick="openLightbox()" style="background:#0284c7; border-color:#0284c7; color:#fff;">
+            🔍 Fullscreen Zoom (100% Vector)
+          </button>
+          <a href="figures/fig1_architecture.png" target="_blank" class="btn-tool" style="text-decoration:none;">
+            ↗ Open High-Res in Tab
+          </a>
+        </div>
+      </div>
+
+      <!-- Grand Full-Width Architectural Showcase -->
+      <div class="figure-box" style="padding:14px; background:#0b1120; border:1px solid #1e293b; border-radius:12px; margin-bottom:14px; width:100%; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);">
+        <img src="figures/fig1_architecture.png" alt="Architecture Schematic" id="archMainImg" style="width:100%; max-height:560px; object-fit:contain; border-radius:6px; cursor:zoom-in;" onclick="openLightbox()">
+        <div style="display:flex; justify-content:space-between; width:100%; align-items:center; margin-top:10px; padding:0 8px;">
+          <div style="font-size:12px; color:var(--text-secondary);">
+            <strong style="color:#fff;">Figure 1:</strong> Full 5-stage RISC-V RV32I microarchitecture showing all 17 verified submodules, dual-path forwarding (EX-EX, MEM-EX), writeback feedback bus, and hazard interlock networks.
           </div>
-          <div id="moduleInspectorCard" class="card" style="background:#050811;">
-            <div class="card-title" id="modTitle" style="color:var(--accent-blue); font-size:14px;">Select a module above</div>
-            <pre class="code-block" id="modCode" style="max-height:220px; margin-top:8px;">// Click a hotspot chip to load Verilog source</pre>
+          <div style="font-size:11px; color:var(--accent-orange); font-weight:700; white-space:nowrap; margin-left:16px;">
+            💡 Click diagram to open Fullscreen Vector Zoom
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Hotspot Toolbar -->
+      <div class="card" style="padding:14px 20px; background:#0d1322; border-color:#1e293b;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+          <div style="font-size:12px; font-weight:700; color:var(--accent-blue); text-transform:uppercase; letter-spacing:0.5px;">
+            Click to Inspect Submodule RTL:
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <span class="hotspot-chip" onclick="openModuleModal('alu')">alu.v (32-Bit ALU)</span>
+            <span class="hotspot-chip" onclick="openModuleModal('regfile')">register_file.v (32x32)</span>
+            <span class="hotspot-chip" onclick="openModuleModal('fwd')">forwarding_unit.v</span>
+            <span class="hotspot-chip" onclick="openModuleModal('hazard')">hazard_detection_unit.v</span>
+            <span class="hotspot-chip" onclick="openModuleModal('branch')">branch_comparator.v</span>
+            <span class="hotspot-chip" onclick="openModuleModal('ctrl')">control_unit.v</span>
+            <span class="hotspot-chip" onclick="openModuleModal('dmem')">data_memory.v</span>
+            <span class="hotspot-chip" onclick="openModuleModal('imem')">instruction_memory.v</span>
           </div>
         </div>
       </div>
@@ -1030,6 +1046,20 @@ end</pre>
   </div>
 </footer>
 
+
+<!-- Lightbox Zoom Modal -->
+<div class="modal-overlay" id="lightboxModal" onclick="closeLightbox(event)">
+  <div style="position:relative; width:95vw; height:92vh; display:flex; flex-direction:column; background:#0b1120; border:1px solid #334155; border-radius:12px; padding:16px; box-shadow:0 25px 50px rgba(0,0,0,0.8);" onclick="event.stopPropagation()">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="font-size:14px; font-weight:700; color:#fff;">RISC-V RV32I 5-Stage Architecture Schematic (Ultra-High Resolution 4K)</div>
+      <button class="btn-tool" onclick="closeLightboxDirect()">✕ Close (ESC)</button>
+    </div>
+    <div style="flex:1; overflow:auto; display:flex; justify-content:center; align-items:center; background:#ffffff; border-radius:8px;">
+      <img src="figures/fig1_architecture.png" alt="Architecture Fullscreen" style="max-width:100%; max-height:100%; object-fit:contain;">
+    </div>
+  </div>
+</div>
+
 <!-- Modal Inspector -->
 <div class="modal-overlay" id="inspectorModal" onclick="closeInspector(event)">
   <div class="modal-box" onclick="event.stopPropagation()">
@@ -1104,7 +1134,7 @@ end</pre>
 
   // Keyboard navigation
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') {
+    if (e.key === 'Escape') { closeLightboxDirect(); closeInspectorDirect(); } else if (e.key === 'ArrowRight' || e.key === ' ') {
       e.preventDefault();
       nextSlide();
     } else if (e.key === 'ArrowLeft') {
@@ -1416,6 +1446,21 @@ endmodule`
       document.getElementById('modTitle').textContent = data.title;
       document.getElementById('modCode').textContent = data.code;
     }
+  }
+
+  
+  function openLightbox() {
+    document.getElementById('lightboxModal').classList.add('open');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightboxModal').classList.remove('open');
+  }
+  function closeLightboxDirect() {
+    document.getElementById('lightboxModal').classList.remove('open');
+  }
+  function openModuleModal(key) {
+    showModalModule(key);
+    document.getElementById('inspectorModal').classList.add('open');
   }
 
   function openInspector() {
