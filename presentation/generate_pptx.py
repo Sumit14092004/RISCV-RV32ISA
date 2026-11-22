@@ -126,7 +126,7 @@ p2.font.color.rgb = ORANGE
 p2.space_before = Pt(4)
 
 p3 = mtf.add_paragraph()
-p3.text = "Academic Program: B.Tech Electronics Engineering (Specialization: VLSI Design and Technology) | Session 2026"
+p3.text = "Course: B.Tech in Electronics Engineering with Specialisation in VLSI Design and Technology | Individual Project (2026)"
 p3.font.size = Pt(11.5)
 p3.font.color.rgb = RGBColor(203, 213, 225)
 p3.space_before = Pt(4)

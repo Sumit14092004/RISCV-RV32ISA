@@ -22,7 +22,7 @@
 > **Speech:**
 > "Respected members of the examination committee, esteemed faculty, and my project mentor **Dr. Keyur Patel**, a very pleasant morning to you all.
 > 
-> My name is **Sumit Pandey**, enrollment number **240141105831048**, pursuing my B.Tech in Electronics Engineering with specialization in **VLSI Design and Technology** at the School of Applied Sciences, Engineering & Technology, Rashtriya Raksha University.
+> My name is **Sumit Pandey**, enrollment number **240141105831048**, pursuing my **B.Tech in Electronics Engineering with Specialisation in VLSI Design and Technology** presenting my **Individual Project** at the School of Applied Sciences, Engineering & Technology, Rashtriya Raksha University.
 > 
 > Today, I am proud to present our project: **'Design, Formal Verification, and FPGA Implementation of a 32-Bit RISC-V RV32I 5-Stage Pipelined Processor'**.
 > 
